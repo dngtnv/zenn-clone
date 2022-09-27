@@ -1,3 +1,4 @@
+import Head from "next/head";
 import Link from "next/link"
 import { ReactElement } from "react";
 import Layout from "../components/Layout";
@@ -5,10 +6,15 @@ import { NextPageWithLayout } from "./_app";
 
 const NotFound: NextPageWithLayout = () => {
     return (
-        <div>
-            <h1 className="text-primary text-2xl">This page could not be found</h1>
-            <Link href="/"><a>Go back</a></Link>
-        </div>
+        <>
+            <Head>
+                <title>Not Found | Zenn</title>
+            </Head>
+            <div>
+                <h1 className="text-primary text-2xl">This page could not be found</h1>
+                <Link href="/"><a>Go back</a></Link>
+            </div>
+        </>
     )
 }
 
