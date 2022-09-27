@@ -1,8 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Footer from '../components/Footer'
-import Header from '../components/Header'
-import Navbar from '../components/Navbar'
 
 const Home: NextPage = () => {
     return (
@@ -14,10 +11,14 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div>
-                <Header />
-                <Navbar />
-                <h1 className='font-inter text-purple-700'>This is body</h1>
-                <Footer />
+                <h1 className='text-2xl'>Homepage</h1>
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas rerum deserunt minus sed ex odio libero, ratione quos vero sit doloribus alias quidem numquam assumenda quisquam rem accusantium qui itaque?
+                    Mollitia, accusantium! Reprehenderit harum aut animi quidem ipsa maxime commodi praesentium, inventore ipsum qui dolores quasi neque dolore alias odit earum quia delectus velit quae. Neque saepe sit aperiam distinctio!
+                    Blanditiis cum ducimus sapiente architecto? Dolorum ea inventore reiciendis. Nostrum praesentium minus sapiente corporis soluta et voluptatum modi tempore, omnis inventore maiores aliquid culpa totam dignissimos ex quis iusto porro?
+                    Excepturi, aspernatur qui suscipit incidunt enim tenetur quasi veniam animi aut, id quaerat assumenda placeat. Ex vel voluptatem voluptatibus? Cum dignissimos nemo temporibus aperiam. Ab nihil aliquam distinctio adipisci atque?
+                    Voluptate consequuntur eveniet animi nisi fugiat, assumenda corrupti sapiente consectetur est cum nostrum facilis doloribus quos necessitatibus explicabo quisquam dolore reiciendis culpa sed exercitationem harum praesentium quia maiores. Aspernatur, sed?
+                    Earum commodi nisi non voluptate ad debitis natus temporibus mollitia delectus, dolores repellendus doloribus ullam fugiat blanditiis, aut tempora itaque asperiores a hic. Mollitia quasi corporis, tempora ratione repudiandae architecto!
+                </p>
             </div>
         </>
     )
