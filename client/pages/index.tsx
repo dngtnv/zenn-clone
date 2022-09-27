@@ -1,7 +1,10 @@
-import type { NextPage } from 'next'
 import Head from 'next/head'
+import { ReactElement } from 'react'
+import Layout from '../components/Layout'
+import Navbar from '../components/Navbar'
+import { NextPageWithLayout } from './_app'
 
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
     return (
         <>
             <Head>
@@ -21,6 +24,16 @@ const Home: NextPage = () => {
                 </p>
             </div>
         </>
+    )
+}
+
+Home.getLayout = function getLayout(page: ReactElement) {
+    return (
+        <Layout>
+            <Navbar />
+            {page}
+            {/* <NestedLayout>{page}</NestedLayout> */}
+        </Layout>
     )
 }
 
