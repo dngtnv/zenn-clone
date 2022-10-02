@@ -1,8 +1,8 @@
 import Image from "next/future/image";
 import Link from "next/link";
-import SvgBell from "../icons/bell-icon";
-import SvgSearch from "../icons/search-icon";
-import SvgZenn from "../icons/zenn-logo";
+import SvgBell from "./icons/bell-icon";
+import SvgSearch from "./icons/search-icon";
+import SvgZenn from "./icons/zenn-logo";
 
 const Header = () => {
     return (
