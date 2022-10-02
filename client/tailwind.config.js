@@ -19,15 +19,15 @@ module.exports = {
                     green: '#EDF2F7',
                 }
             },
-            constainer: {
+            container: {
                 center: true,
-                padding: {
+                /* padding: {
                     DEFAULT: '1rem',
                     sm: '2rem',
                     lg: '3rem',
                     xl: '10rem',
                     '2xl': '18.75rem',
-                }
+                } */
             },
             fontFamily: {
                 inter: ['Inter', 'sans-serif'],
