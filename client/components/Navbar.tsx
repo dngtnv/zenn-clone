@@ -1,16 +1,28 @@
-import Link from "next/link";
+import Link from 'next/link'
 
-const Navbar = () => {
-    return (
-        <nav>
-            <div className="mx-auto px-10 max-w-[1200px]">
-                <div className="flex justify-start items-center">
-                    <Link href="/"><a className="text-base font-semibold text-primary mr-[27.2px] py-2 border-b-2 border-[#000000]">Trending</a></Link>
-                    <Link href="/following"><a className="text-base font-semibold text-primary mr-[27.2px] py-2">Following</a></Link>
-                    <Link href="/explore"><a className="text-base font-semibold text-primary py-2">Explore</a></Link>
-                </div>
-            </div>
-        </nav>
-    )
+const Navbar: React.FC = () => {
+	return (
+		<nav className='border-b border-b-gray-border-lighter'>
+			<div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10  max-w-[1200px]'>
+				<div className='flex justify-start items-center'>
+					<Link href='/'>
+						<a className='text-base font-semibold text-primary mr-[27.2px] py-2 border-b-[2.5px] border-b-primary'>
+							Trending
+						</a>
+					</Link>
+					<Link href='/following'>
+						<a className='text-base font-semibold text-secondary mr-[27.2px] py-2 border-b-[2.5px] border-b-transparent'>
+							Following
+						</a>
+					</Link>
+					<Link href='/explore'>
+						<a className='text-base font-semibold text-secondary py-2 border-b-[2.5px] border-b-transparent'>
+							Explore
+						</a>
+					</Link>
+				</div>
+			</div>
+		</nav>
+	)
 }
-export default Navbar;
+export default Navbar
