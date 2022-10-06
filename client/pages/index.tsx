@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import SvgHeart from '../components/icons/heart-icon'
 import SvgArrow from '../components/icons/arrow-icon'
+import Tooltip from '../components/tooltip'
 
 const Home: NextPageWithLayout = () => {
 	return (
@@ -25,15 +26,11 @@ const Home: NextPageWithLayout = () => {
 							<h1 className='text-2xl leading-[1.3] font-bold text-primary mr-[6px]'>
 								Tech
 							</h1>
-							<button
-								className='group translate-y-[5px] before:bottom-auto before:pointer-events-none before:left-1/2 before:top-full before:-translate-x-1/2 before:border-[6px] before:border-transparent before:border-b-[7px] before:border-b-[#1b1b1d] before:opacity-0 before:transition-opacity before:duration-100 before:ease-in-out before:delay-300 before:absolute before:z-50 before:leading-[1.4] hover:before:opacity-100 after:whitespace-normal after:w-[140px] after:bottom-auto after:left-1/2 after:top-full after:-translate-x-1/2 after:mt-3 after:pointer-events-none after:bg-[#1b1b1d] after:text-white after:rounded-md after:content-[attr(aria-label)] after:text-[11px] after:font-normal after:py-[0.4em] after:px-[0.7em] after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-100 after:delay-300 after:ease-in-out after:absolute after:z-50 after:leading-[1.4]'
-								role={'tooltip'}
-								aria-label={'Knowledge of technology'}
-							>
+							<Tooltip label='Knowledge of technology'>
 								<span className='flex justify-center w-[17px] h-[17px] leading-[17px] text-white text-[10px] rounded-[50%] bg-gray-lighter group-hover:bg-gray-primary'>
 									?
 								</span>
-							</button>
+							</Tooltip>
 						</div>
 						<div className='mt-[1.1rem]'>
 							<div className='flex flex-wrap justify-between items-start'>
