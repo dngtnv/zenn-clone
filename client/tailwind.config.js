@@ -12,7 +12,7 @@ module.exports = {
 				gray: {
 					primary: '#93A5B1',
 					lighter: '#ACBBC7',
-					'border-lighter': '#5c93bb2b',
+					'bd-lighter': '#5c93bb2b',
 				},
 				'blue-lighter': '#3EA8FF',
 				'blue-darker': '#0F83FD',
