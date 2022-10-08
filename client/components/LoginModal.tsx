@@ -71,9 +71,9 @@ export default function LoginModal(props: Props) {
 										className='text-sm font-normal text-left leading-6 text-secondary mt-[1.2rem]'
 									>
 										Zenn is a technical information sharing platform. Share your
-										knowledge and ideas.{' '}
-										<Link href='#'>
-											<a className='text-blue-lighter'>Zenn concept</a>
+										knowledge and ideas.
+										<Link href='/about'>
+											<a className='text-blue-lighter'> Zenn concept</a>
 										</Link>
 									</Dialog.Title>
 									<div className='mt-[1.3rem]'>

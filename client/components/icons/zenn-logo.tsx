@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface Props {
-	width: number | string
-	height: number
+	width?: number | string
+	height?: number
 	className?: string
 }
 export default function SvgZenn(props: Props) {

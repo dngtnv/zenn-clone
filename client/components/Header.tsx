@@ -23,7 +23,7 @@ const Header: React.FC = () => {
 					<div className='flex justify-between items-center'>
 						<Link href='/'>
 							<a className='flex items-center h-[62px]'>
-								<SvgZenn height={22} width={'auto'} />
+								<SvgZenn height={22} />
 							</a>
 						</Link>
 						<div>
@@ -52,7 +52,7 @@ const Header: React.FC = () => {
 										<button
 											type='button'
 											onClick={openModal}
-											className='hidden tablet:inline-flex w-[92px] h-9 items-center justify-center text-white font-semibold text-sm bg-blue-lighter rounded-[7px] ml-[22px] hover:bg-blue-darker transition duration-[250ms] ease-out'
+											className='inline-flex w-[80px] h-9 items-center justify-center text-white font-semibold text-[15px] bg-blue-lighter rounded-[7px] ml-[22px] hover:bg-blue-darker transition duration-[250ms] ease-out'
 										>
 											Log in
 										</button>
