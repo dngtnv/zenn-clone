@@ -4,10 +4,9 @@ import Layout from '../components/Layout'
 import Navbar from '../components/Navbar'
 import { NextPageWithLayout } from './_app'
 import Link from 'next/link'
-import Image from 'next/image'
-import SvgHeart from '../components/icons/heart-icon'
 import SvgArrow from '../components/icons/arrow-icon'
 import Tooltip from '../components/tooltip'
+import ArticleList from '../components/articles/ArticleList'
 
 const Home: NextPageWithLayout = () => {
 	return (
@@ -33,120 +32,7 @@ const Home: NextPageWithLayout = () => {
 							</Tooltip>
 						</div>
 						<div className='mt-[1.1rem]'>
-							<div className='flex flex-wrap justify-between items-start'>
-								<div className='w-full laptop:w-[47%]'>
-									<article className='flex justify-between py-[15px]'>
-										<Link href='#'>
-											<a className='shrink-0 w-[76px] h-[76px] text-[37px] tablet:w-[92px] tablet:h-[92px] flex items-center justify-center tablet:text-[42px] bg-white rounded-[14px]'>
-												<span>
-													<span className="inline-flex w-[1em] h-[1em] bg-[url('../public/ingodwhotrust.jpg')] bg-no-repeat bg-cover bg-center"></span>
-												</span>
-											</a>
-										</Link>
-										<div className='w-[calc(100%_-_92px)] tablet:w-[calc(100%_-_108px)]'>
-											<Link href='#'>
-												<a className='text-primary'>
-													<h2 className='text-xl text-primary leading-[1.5] font-semibold text-ellipsis overflow-hidden line-clamp-3 max-h-[4.55em]'>
-														What is React Hooks and how to use it in 3 hours
-													</h2>
-												</a>
-											</Link>
-											<div className='flex items-center mt-[6px] mobile:mt-[6.4px]'>
-												<div className='shrink-0'>
-													<Link href='#'>
-														<a className='flex'>
-															<Image
-																className='rounded-[50%] block w-[26px] aspect-auto h-auto shrink-0 font-[11px]'
-																src={'/ingodwhotrust.jpg'}
-																width={26}
-																height={26}
-																alt=''
-															/>
-														</a>
-													</Link>
-												</div>
-												<div className='ml-2 flex flex-1'>
-													<div className='flex items-center text-xs text-primary mr-[7px] leading-[1.1] min-w-0'>
-														<Link href='#'>
-															<a className='truncate hover:underline hover:underline-offset-[0.15em]'>
-																dngtnv
-															</a>
-														</Link>
-													</div>
-													<div className='flex items-center text-secondary text-[11.5px] leading-[1.1] flex-shrink-0'>
-														<time
-															className='mr-[6px]'
-															dateTime='2022-10-02T11:22:35+00:00'
-														>
-															2 days ago
-														</time>
-														<span className='flex items-center tracking-[0.07em]'>
-															<SvgHeart />
-															210
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</article>
-								</div>
-								<div className='w-full laptop:w-[47%]'>
-									<article className='flex justify-between py-[15px]'>
-										<Link href='#'>
-											<a className='shrink-0 w-[76px] h-[76px] text-[37px] tablet:w-[92px] tablet:h-[92px] flex items-center justify-center tablet:text-[42px] bg-white rounded-[14px]'>
-												<span>
-													<span className="inline-flex w-[1em] h-[1em] bg-[url('../public/ingodwhotrust.jpg')] bg-no-repeat bg-cover bg-center"></span>
-												</span>
-											</a>
-										</Link>
-										<div className='w-[calc(100%_-_92px)] tablet:w-[calc(100%_-_108px)]'>
-											<Link href='#'>
-												<a className='text-primary'>
-													<h2 className='text-xl text-primary leading-[1.5] font-semibold text-ellipsis overflow-hidden line-clamp-3 max-h-[4.55em]'>
-														What is React Hooks and how to use it in 3 hours
-													</h2>
-												</a>
-											</Link>
-											<div className='flex items-center mt-[6px] mobile:mt-[6.4px]'>
-												<div className='shrink-0'>
-													<Link href='#'>
-														<a className='flex'>
-															<Image
-																className='rounded-[50%] block w-[26px] aspect-auto h-auto shrink-0 font-[11px]'
-																src={'/ingodwhotrust.jpg'}
-																width={26}
-																height={26}
-																alt=''
-															/>
-														</a>
-													</Link>
-												</div>
-												<div className='ml-2 flex flex-1'>
-													<div className='flex items-center text-xs text-primary mr-[7px] leading-[1.1] min-w-0'>
-														<Link href='#'>
-															<a className='truncate hover:underline hover:underline-offset-[0.15em]'>
-																dngtnv
-															</a>
-														</Link>
-													</div>
-													<div className='flex items-center text-secondary text-[11.5px] leading-[1.1] flex-shrink-0'>
-														<time
-															className='mr-[6px]'
-															dateTime='2022-10-02T11:22:35+00:00'
-														>
-															2 days ago
-														</time>
-														<span className='flex items-center tracking-[0.07em]'>
-															<SvgHeart />
-															210
-														</span>
-													</div>
-												</div>
-											</div>
-										</div>
-									</article>
-								</div>
-							</div>
+							<ArticleList />
 						</div>
 						<div className='mt-[2.2rem] text-center font-[1.02rem]'>
 							<Link href='#'>

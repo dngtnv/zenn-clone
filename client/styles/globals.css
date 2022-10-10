@@ -1,25 +1,26 @@
 @tailwind base;
 @layer base {
-    html {
-        @apply font-inter;
-    }
+	html {
+		@apply font-inter;
+	}
 }
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-    padding: 0;
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.8rem;
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-size: 16px;
+	line-height: 1.8rem;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
-    transition: all .25s ease 0s
+	color: inherit;
+	text-decoration: none;
+	transition: all 0.25s ease 0s;
 }
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }

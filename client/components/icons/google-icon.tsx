@@ -3,7 +3,7 @@ import React from 'react'
 interface Props {
 	w?: number
 	h?: number
-	className?: ''
+	className?: string
 }
 
 export default function SvgGoogle(props: Props) {

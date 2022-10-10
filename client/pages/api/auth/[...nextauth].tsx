@@ -6,6 +6,20 @@ export default NextAuth({
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+			profile(profile) {
+				return {
+					id,
+					name,
+					email,
+					picture,
+				}
+			},
 		}),
 	],
+	page: {
+		signIn: ({ user, account, profile, isNewUser }) => {
+			console.log(`isNewUser: ${JSON.stringify(isNewUser)}`)
+		},
+	},
+	debug: false,
 })
