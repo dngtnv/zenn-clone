@@ -4,7 +4,7 @@ import { useState } from 'react'
 import SvgBell from './icons/bell-icon'
 import SvgSearch from './icons/search-icon'
 import SvgZenn from './icons/zenn-logo'
-import LoginModal from './LoginModal'
+import LoginModal from './login/LoginModal'
 
 const Header: React.FC = () => {
 	let [isOpen, setIsOpen] = useState(false)

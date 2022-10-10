@@ -14,8 +14,11 @@ module.exports = {
 					lighter: '#ACBBC7',
 					'bd-lighter': '#5c93bb2b',
 				},
-				'blue-lighter': '#3EA8FF',
-				'blue-darker': '#0F83FD',
+				blue: {
+					lightest: '#E6F2FF',
+					lighter: '#3EA8FF',
+					darker: '#0F83FD',
+				},
 				main: {
 					blue: '#E6F2FF',
 					gray: '#F1F5F9',
