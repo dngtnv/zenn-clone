@@ -16,8 +16,9 @@ body {
 }
 
 a {
-	color: inherit;
+	color: #000000d1;
 	text-decoration: none;
+	text-underline-offset: 0.15em;
 	transition: all 0.25s ease 0s;
 }
 
