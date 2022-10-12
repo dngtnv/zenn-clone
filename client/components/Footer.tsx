@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
 								<SvgZenn width={85} height={20} />
 							</a>
 						</Link>
-						<p className='my-[0.3rem] text-gray-primary text-[13.5px] leading-[1.6]'>
+						<p className='my-[0.3rem] text-gray-primary text-[13.5px] leading-[1.6] pr-0 laptop:pr-9'>
 							Information sharing community for engineers
 						</p>
 					</div>
