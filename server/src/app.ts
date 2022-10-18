@@ -2,7 +2,8 @@ import express, { json } from 'express'
 import cors from 'cors'
 const port = process.env.PORT || 5000
 import routes from './routes'
-import { connectToServer } from '../db/connect'
+import { connectToServer } from './db/connect'
+import logging from './library/logging'
 
 const app = express()
 app.use(cors())
@@ -19,5 +20,5 @@ app.listen(port, () => {
   // perform a database connection when server starts
   connectToServer()
   routes(app)
-  console.log(`Server is running on port: ${port}`)
+  logging.info(`Server is running on port: ${port}`)
 })

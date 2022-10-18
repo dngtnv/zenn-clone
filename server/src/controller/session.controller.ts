@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken'
 import { CookieOptions, Request, Response } from 'express'
 import { createSession, findSessions } from '../service/session.service'
 import { signJwt } from '../utils/jwt.utils'
-import config from '../../config/default'
+import config from '../config/default'
 
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 900000, // 15 mins

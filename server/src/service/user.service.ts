@@ -2,7 +2,7 @@ import axios from 'axios'
 import { omit } from 'lodash'
 import { FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'
 import qs from 'qs'
-import config from '../../config/default'
+import config from '../config/default'
 import UserModel, { UserDocument } from '../models/user.model'
 
 export const validatePassword = async ({
