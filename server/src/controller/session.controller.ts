@@ -2,11 +2,13 @@ import {
   findAndUpdateUser,
   getGoogleOauthTokens,
   getGoogleUser,
-  validatePassword,
 } from '../service/user.service'
-import jwt from 'jsonwebtoken'
 import { CookieOptions, Request, Response } from 'express'
-import { createSession, findSessions } from '../service/session.service'
+import {
+  createSession,
+  findSessions,
+  updateSession,
+} from '../service/session.service'
 import { signJwt } from '../utils/jwt.utils'
 import config from '../config/default'
 
@@ -24,38 +26,25 @@ const refreshTokenCookieOptions: CookieOptions = {
   maxAge: 3.154e10, // 1 year
 }
 
-export const createSessionHandler = async (req: Request, res: Response) => {
-  // Validate the user's password
-  const user = await validatePassword(req.body)
-
-  if (!user) {
-    return res.status(401).send('Invalid email or password')
-  }
-  // create a session
-  const session = await createSession(user._id, req.get('user-agent') || '')
-  // create an access token
-  const accessToken = signJwt(
-    { ...user, session: session._id },
-    { expiresIn: config.accessTokenTtl } // 15 mins
-  )
-  //create a refresh token
-  const refreshToken = signJwt(
-    { ...user, session: session._id },
-    { expiresIn: config.refreshTokenTtl } // 1 year
-  )
-  // return access & refresh tokens
-  res.cookie('accessToken', accessToken, accessTokenCookieOptions)
-  res.cookie('refreshToken', refreshToken, refreshTokenCookieOptions)
-  return res.send({ accessToken, refreshToken })
-}
-
-export const getuserSessionHandler = async (req: Request, res: Response) => {
+export const getUserSessionsHandler = async (req: Request, res: Response) => {
   const userId = res.locals.user._id
-  const sessions = findSessions({ user: userId, valid: true })
-  return res.end(sessions)
+
+  const sessions = await findSessions({ user: userId, valid: true })
+
+  return res.send(sessions)
 }
 
-export default async function googleOauthHandler(req: Request, res: Response) {
+export const deleteSessionHandler = async (req: Request, res: Response) => {
+  const sessionId = res.locals.user.session
+
+  await updateSession({ _id: sessionId }, { valid: false })
+  return res.send({
+    accessToken: null,
+    refreshToken: null,
+  })
+}
+
+export const googleOauthHandler = async (req: Request, res: Response) => {
   // get the code from qs
   const code = req.query.code as string
   try {
@@ -88,11 +77,11 @@ export default async function googleOauthHandler(req: Request, res: Response) {
     const session = await createSession(user?._id, req.get('user-agent') || '')
     // create access & refresh tokens
     const accessToken = signJwt(
-      { ...user, session: session._id },
+      { ...user?.toJSON(), session: session._id },
       { expiresIn: config.accessTokenTtl } // 15 minutes
     )
     const refreshToken = signJwt(
-      { ...user, session: session._id },
+      { ...user?.toJSON(), session: session._id },
       { expiresIn: config.refreshTokenTtl } // 1 year
     )
     // set cookies

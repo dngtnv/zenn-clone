@@ -7,7 +7,6 @@ export interface UserDocument extends mongoose.Document {
   picture: string
   createAt: Date
   updateAt: Date
-  comparePassword(candidatePassword: string): Promise<boolean>
 }
 const userSchema = new mongoose.Schema(
   {

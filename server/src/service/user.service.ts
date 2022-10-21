@@ -1,27 +1,9 @@
 import axios from 'axios'
-import { omit } from 'lodash'
 import { FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'
 import qs from 'qs'
 import config from '../config/default'
+import logging from '../library/logging'
 import UserModel, { UserDocument } from '../models/user.model'
-
-export const validatePassword = async ({
-  email,
-  password,
-}: {
-  email: string
-  password: string
-}) => {
-  const user = await UserModel.findOne({ email })
-
-  if (!user) {
-    return false
-  }
-  const idValid = await user.comparePassword(password)
-
-  if (!idValid) return false
-  return omit(user, 'password')
-}
 
 export const findUser = (query: FilterQuery<UserDocument>) => {
   return UserModel.findOne(query).lean()
@@ -60,7 +42,7 @@ export const getGoogleOauthTokens = async ({
     )
     return res.data
   } catch (error: any) {
-    console.error(error, 'Failed to fetch Google Oauth Tokens')
+    logging.error(`${error}, Failed to fetch Google Oauth Tokens`)
     throw new Error(error.message)
   }
 }
@@ -92,7 +74,7 @@ export const getGoogleUser = async ({
     )
     return res.data
   } catch (error: any) {
-    console.error(error, 'Error fetching Google user')
+    logging.error(`${error}, Error fetching Google user`)
     throw new Error(error.message)
   }
 }
