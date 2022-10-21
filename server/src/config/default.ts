@@ -12,7 +12,7 @@ export default {
   refreshTokenTtl: '1y',
   publicKey: process.env.PUBLIC_KEY || '',
   privateKey: process.env.PRIVATE_KEY || '',
-  atlasUri: `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@zenndev.s8h90nc.mongodb.net`,
+  atlasUri: `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@zenndev.s8h90nc.mongodb.net/zennclone`,
   googleClientId: process.env.GOOGLE_CLIENT_ID || '',
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
   googleOauthRedirectUrl: process.env.GG_OAUTH_REDIRECT_URI || '',

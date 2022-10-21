@@ -3,7 +3,7 @@ import config from '../config/default'
 import logging from '../library/logging'
 
 const dbURI = config.atlasUri as string
-export const connectToServer = () => {
+export const connectToDB = () => {
   try {
     mongoose.connect(dbURI, { retryWrites: true, w: 'majority' })
     logging.info('Connected to Mongodb.')
