@@ -1,13 +1,13 @@
-import { GetServerSideProps, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import Image from 'next/future/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import useSWR from 'swr'
-import fetcher from '../utils/fetcher'
-import SvgBell from './icons/bell-icon'
-import SvgSearch from './icons/search-icon'
-import SvgZenn from './icons/zenn-logo'
-import LoginModal from './login/LoginModal'
+import fetcher from '../../utils/fetcher'
+import SvgBell from '../Icons/bell-icon'
+import SvgSearch from '../Icons/search-icon'
+import SvgZenn from '../Icons/zenn-logo'
+import LoginModal from '../Login/LoginModal'
 
 interface User {
   _id: string
@@ -22,7 +22,7 @@ interface User {
   exp: number
 }
 
-const Header: NextPage<{ fallbackData: User }> = ({ fallbackData }) => {
+const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
   const { data } = useSWR<User | null>(
     `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/user/me`,
     fetcher,

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react"
-import { Dialog, Transition } from "@headlessui/react"
-import Link from "next/link"
-import { Fragment } from "react"
-import SvgClose from "../icons/close-icon"
-import SvgGoogle from "../icons/google-icon"
-import SvgZenn from "../icons/zenn-logo"
-import getGoogleOauthUrl from "../../utils/getGoogleUrl"
+import React from 'react'
+import { Dialog, Transition } from '@headlessui/react'
+import Link from 'next/link'
+import { Fragment } from 'react'
+import SvgClose from '../Icons/close-icon'
+import SvgGoogle from '../Icons/google-icon'
+import SvgZenn from '../Icons/zenn-logo'
+import getGoogleOauthUrl from '../../utils/getGoogleUrl'
 
 interface Props {
   isOpen: boolean
@@ -77,7 +77,7 @@ export default function LoginModal(props: Props) {
                     </button> */}
                   </div>
                   <Dialog.Description className='mt-[1.3rem] text-[0.78em] tablet:text-sm text-left text-secondary'>
-                    Please log in after agreeing to the{" "}
+                    Please log in after agreeing to the{' '}
                     <Link href='terms'>
                       <a className='inline-block underline underline-offset-[0.2em] hover:no-underline hover:text-blue-lighter'>
                         Terms of use
