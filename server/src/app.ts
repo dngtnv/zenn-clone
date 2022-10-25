@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import routes from './routes'
 import { connectToDB } from './db/connect'
-import logging from './library/logging'
+import logger from './library/logger'
 import http from 'http'
 import config from '../src/config/default'
 import deserializeUser from './middleware/deserializeUser'
@@ -14,12 +14,12 @@ const app = express()
 const StartServer = () => {
   app.use((req, res, next) => {
     // Log the Request
-    logging.info(
+    logger.info(
       `Incomming -> Method: [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}]`
     )
     res.on('finish', () => {
       // Log the Response
-      logging.info(
+      logger.info(
         `Result -> Method: [${req.method}] - Url: [${req.url}] - IP: [${req.socket.remoteAddress}] - Status: [${res.statusCode}]`
       )
     })
@@ -58,13 +58,13 @@ const StartServer = () => {
   // Error handling
   app.use((req, res, next) => {
     const error = new Error('not found')
-    logging.error(error)
+    logger.error(error)
     return res.status(404).json({ message: error.message })
   })
 
   http.createServer(app).listen(port, () => {
     connectToDB()
-    logging.info(`Server is running on port: ${port}`)
+    logger.info(`Server is running on port: ${port}`)
   })
 }
 

@@ -19,11 +19,11 @@ export function verifyJwt(token: string) {
       expired: false,
       decoded,
     }
-  } catch (e: any) {
-    console.error(e)
+  } catch (error: any) {
+    console.error(error)
     return {
       valid: false,
-      expired: e.message === 'jwt expired',
+      expired: error.message === 'jwt expired',
       decoded: null,
     }
   }

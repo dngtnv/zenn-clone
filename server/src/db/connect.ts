@@ -1,15 +1,15 @@
 import mongoose from 'mongoose'
 import config from '../config/default'
-import logging from '../library/logging'
+import logger from '../library/logger'
 
 const dbURI = config.atlasUri as string
 export const connectToDB = () => {
   try {
     mongoose.connect(dbURI, { retryWrites: true, w: 'majority' })
-    logging.info('Connected to Mongodb.')
+    logger.info('Connected to Mongodb.')
   } catch (err) {
-    logging.error('Unable to connect: ')
-    logging.error(err)
+    logger.error('Unable to connect: ')
+    logger.error(err)
     process.exit(1)
   }
 }

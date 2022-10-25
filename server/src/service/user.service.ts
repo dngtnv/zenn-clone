@@ -2,7 +2,7 @@ import axios from 'axios'
 import { FilterQuery, QueryOptions, UpdateQuery } from 'mongoose'
 import qs from 'qs'
 import config from '../config/default'
-import logging from '../library/logging'
+import logger from '../library/logger'
 import UserModel, { UserDocument } from '../models/user.model'
 
 export const findUser = (query: FilterQuery<UserDocument>) => {
@@ -42,7 +42,7 @@ export const getGoogleOauthTokens = async ({
     )
     return res.data
   } catch (error: any) {
-    logging.error(`${error}, Failed to fetch Google Oauth Tokens`)
+    logger.error(`${error}, Failed to fetch Google Oauth Tokens`)
     throw new Error(error.message)
   }
 }
@@ -74,7 +74,7 @@ export const getGoogleUser = async ({
     )
     return res.data
   } catch (error: any) {
-    logging.error(`${error}, Error fetching Google user`)
+    logger.error(`${error}, Error fetching Google user`)
     throw new Error(error.message)
   }
 }
