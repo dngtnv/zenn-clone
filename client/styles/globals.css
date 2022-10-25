@@ -1,27 +1,33 @@
 @tailwind base;
 @layer base {
-	html {
-		@apply font-inter;
-	}
+  html {
+    @apply font-inter;
+  }
 }
 @tailwind components;
 @tailwind utilities;
 
 html,
 body {
-	padding: 0;
-	margin: 0;
-	font-size: 16px;
-	line-height: 1.8rem;
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.8rem;
 }
 
 a {
-	color: #000000d1;
-	text-decoration: none;
-	text-underline-offset: 0.15em;
-	transition: all 0.25s ease 0s;
+  color: #000000d1;
+  text-decoration: none;
+  text-underline-offset: 0.15em;
+  transition: all 0.25s ease 0s;
+}
+button {
+  border: none;
+  cursor: pointer;
+  appearance: none;
+  transition: all 0.25s ease 0s;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }

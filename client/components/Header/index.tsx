@@ -1,9 +1,10 @@
 import { GetServerSideProps } from 'next'
 import Image from 'next/future/image'
-import Link from 'next/link'
 import { useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '../../utils/fetcher'
+import NextLink from '../../utils/NextLink'
+import UserMenu from '../DropdownMenu/UserMenu'
 import SvgBell from '../Icons/bell-icon'
 import SvgSearch from '../Icons/search-icon'
 import SvgZenn from '../Icons/zenn-logo'
@@ -38,30 +39,29 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
     setIsOpen(true)
   }
 
-  if (data) {
+  if (!data) {
     return (
       <header>
         <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
           <div className='flex justify-between items-center'>
-            <Link href='/'>
-              <a className='flex items-center h-[62px]'>
-                <SvgZenn height={22} />
-              </a>
-            </Link>
+            <NextLink href='/' className='flex items-center h-[62px]'>
+              <SvgZenn height={22} />
+            </NextLink>
             <div className='transition-all duration-[0.3s] ease-in'>
               <div className='flex items-center'>
-                <Link href='/search'>
-                  <a className='text-secondary hover:text-primary transition duration-[250] ease-out'>
-                    <SvgSearch size={23} />
-                  </a>
-                </Link>
+                <NextLink
+                  href='/search'
+                  className='text-secondary hover:text-primary transition duration-[250] ease-out'
+                >
+                  <SvgSearch size={23} />
+                </NextLink>
                 <div className='flex items-center content-center ml-4'>
                   <div className='text-secondary w-[23px] h-[23px]'>
                     <button className='text-secondary hover:text-primary transition duration-[250ms] ease-out'>
                       <SvgBell size={23} />
                     </button>
                   </div>
-                  <button className='h-10 ml-[20px]'>
+                  <UserMenu>
                     <Image
                       className='object-cover border border-transparent rounded-[50%]'
                       src={data ? data.picture : '/ingodwhotrust.jpg'}
@@ -69,8 +69,8 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
                       height={40}
                       alt=''
                     />
-                  </button>
-                  <div>
+                  </UserMenu>
+                  <div className='hidden tablet:flex items-center'>
                     <button
                       type='button'
                       onClick={() => console.log('clicked')}
@@ -93,18 +93,17 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
       <header>
         <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
           <div className='flex justify-between items-center'>
-            <Link href='/'>
-              <a className='flex items-center h-[62px]'>
-                <SvgZenn height={22} />
-              </a>
-            </Link>
+            <NextLink href='/' className='flex items-center h-[62px]'>
+              <SvgZenn height={22} />
+            </NextLink>
             <div className='transition-all duration-[0.3s] ease-in'>
               <div className='flex items-center'>
-                <Link href='/search'>
-                  <a className='text-secondary hover:text-primary transition duration-[250] ease-out'>
-                    <SvgSearch size={23} />
-                  </a>
-                </Link>
+                <NextLink
+                  href='/search'
+                  className='text-secondary hover:text-primary transition duration-[250] ease-out'
+                >
+                  <SvgSearch size={23} />
+                </NextLink>
                 <button
                   type='button'
                   onClick={openModal}

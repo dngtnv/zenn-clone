@@ -6,6 +6,7 @@ import SvgClose from '../Icons/close-icon'
 import SvgGoogle from '../Icons/google-icon'
 import SvgZenn from '../Icons/zenn-logo'
 import getGoogleOauthUrl from '../../utils/getGoogleUrl'
+import NextLink from '../../utils/NextLink'
 
 interface Props {
   isOpen: boolean
@@ -63,9 +64,7 @@ export default function LoginModal(props: Props) {
                     </Link>
                   </Dialog.Title>
                   <div className='mt-[1.3rem]'>
-                    <Link href={getGoogleOauthUrl()}>
-                      <a>LOGIN</a>
-                    </Link>
+                    <NextLink href={getGoogleOauthUrl()}>LOGIN</NextLink>
                     {/* <button
                       type='button'
                       className='inline-flex items-center leading-[1.4rem] whitespace-nowrap rounded-[0.45rem] justify-center border border-gray-bd-lighter bg-[#eff6fb99] px-[1.5em] py-[0.6em] text-[1rem] font-semibold text-primary shadow-[0_3px_5px_-2px_rgba(33,37,56,0.25)] transition ease-out duration-[0.25s] hover:bg-[#edf2f7] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 focus-visible:ring-offset-2'
@@ -78,16 +77,18 @@ export default function LoginModal(props: Props) {
                   </div>
                   <Dialog.Description className='mt-[1.3rem] text-[0.78em] tablet:text-sm text-left text-secondary'>
                     Please log in after agreeing to the{' '}
-                    <Link href='terms'>
-                      <a className='inline-block underline underline-offset-[0.2em] hover:no-underline hover:text-blue-lighter'>
-                        Terms of use
-                      </a>
-                    </Link>
-                    <Link href='/privacy'>
-                      <a className='inline-block underline underline-offset-[0.2em] hover:no-underline hover:text-blue-lighter'>
-                        Privacy policy
-                      </a>
-                    </Link>
+                    <NextLink
+                      href='terms'
+                      className='inline-block underline underline-offset-[0.2em] hover:no-underline hover:text-blue-lighter'
+                    >
+                      Terms of use
+                    </NextLink>
+                    <NextLink
+                      href='/privacy'
+                      className='inline-block underline underline-offset-[0.2em] hover:no-underline hover:text-blue-lighter'
+                    >
+                      Privacy policy
+                    </NextLink>
                     .
                   </Dialog.Description>
                 </Dialog.Panel>

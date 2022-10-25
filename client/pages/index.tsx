@@ -3,11 +3,11 @@ import { ReactElement } from 'react'
 import Layout from '../components/Layout'
 import Navbar from '../components/Navbar'
 import { NextPageWithLayout } from './_app'
-import Link from 'next/link'
-import SvgArrow from '../components/icons/arrow-icon'
-import Tooltip from '../components/tooltip'
-import ArticleList from '../components/articles/ArticleList'
-import LoginCta from '../components/login/LoginCta'
+import SvgArrow from '../components/Icons/arrow-icon'
+import Tooltip from '../components/Tooltip'
+import ArticleList from '../components/Articles/ArticleList'
+import LoginCta from '../components/Login/LoginCta'
+import NextLink from '../utils/NextLink'
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -36,12 +36,13 @@ const Home: NextPageWithLayout = () => {
               <ArticleList />
             </div>
             <div className='mt-[2.2rem] text-center font-[1.02rem]'>
-              <Link href='#'>
-                <a className='inline-block text-[0.956rem] tablet:text-[1.02rem] text-blue-darker hover:underline hover:underline-offset-[0.3em]'>
-                  More Trending
-                  <SvgArrow size={16.31} />
-                </a>
-              </Link>
+              <NextLink
+                href='#'
+                className='inline-block text-[0.956rem] tablet:text-[1.02rem] text-blue-darker hover:underline hover:underline-offset-[0.3em]'
+              >
+                More Trending
+                <SvgArrow size={16.31} />
+              </NextLink>
             </div>
           </div>
         </section>
@@ -61,12 +62,13 @@ const Home: NextPageWithLayout = () => {
               <ArticleList />
             </div>
             <div className='mt-[2.2rem] text-center font-[1.02rem]'>
-              <Link href='#'>
-                <a className='inline-block text-[0.956rem] tablet:text-[1.02rem] text-blue-darker hover:underline hover:underline-offset-[0.3em]'>
-                  More articles
-                  <SvgArrow size={16.31} />
-                </a>
-              </Link>
+              <NextLink
+                href='#'
+                className='inline-block text-[0.956rem] tablet:text-[1.02rem] text-blue-darker hover:underline hover:underline-offset-[0.3em]'
+              >
+                More articles
+                <SvgArrow size={16.31} />
+              </NextLink>
             </div>
           </div>
         </section>
