@@ -1,9 +1,10 @@
 import { GetServerSideProps } from 'next'
-import Image from 'next/future/image'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '../../utils/fetcher'
-import NextLink from '../../utils/NextLink'
+import AddnewMenu from '../DropdownMenu/AddnewMenu'
 import UserMenu from '../DropdownMenu/UserMenu'
 import SvgBell from '../Icons/bell-icon'
 import SvgSearch from '../Icons/search-icon'
@@ -44,17 +45,17 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
       <header>
         <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
           <div className='flex justify-between items-center'>
-            <NextLink href='/' className='flex items-center h-[62px]'>
+            <Link href='/' className='flex items-center h-[62px]'>
               <SvgZenn height={22} />
-            </NextLink>
+            </Link>
             <div className='transition-all duration-[0.3s] ease-in'>
               <div className='flex items-center'>
-                <NextLink
+                <Link
                   href='/search'
                   className='text-secondary hover:text-primary transition duration-[250] ease-out'
                 >
                   <SvgSearch size={23} />
-                </NextLink>
+                </Link>
                 <div className='flex items-center content-center ml-4'>
                   <div className='text-secondary w-[23px] h-[23px]'>
                     <button className='text-secondary hover:text-primary transition duration-[250ms] ease-out'>
@@ -71,13 +72,9 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
                     />
                   </UserMenu>
                   <div className='hidden tablet:flex items-center'>
-                    <button
-                      type='button'
-                      onClick={() => console.log('clicked')}
-                      className='inline-flex w-[92px] h-9 items-center justify-center text-white font-semibold text-[14.5px] bg-blue-lighter ml-[22px] rounded-[7px] hover:bg-blue-darker transition duration-[250ms] ease-out'
-                    >
+                    <AddnewMenu className='inline-flex w-[92px] h-9 items-center justify-center text-white font-semibold text-[14.5px] bg-blue-lighter ml-[22px] rounded-[7px] hover:bg-blue-darker transition duration-[250ms] ease-out'>
                       Add new
-                    </button>
+                    </AddnewMenu>
                   </div>
                 </div>
               </div>
@@ -93,17 +90,17 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
       <header>
         <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
           <div className='flex justify-between items-center'>
-            <NextLink href='/' className='flex items-center h-[62px]'>
+            <Link href='/' className='flex items-center h-[62px]'>
               <SvgZenn height={22} />
-            </NextLink>
+            </Link>
             <div className='transition-all duration-[0.3s] ease-in'>
               <div className='flex items-center'>
-                <NextLink
+                <Link
                   href='/search'
                   className='text-secondary hover:text-primary transition duration-[250] ease-out'
                 >
                   <SvgSearch size={23} />
-                </NextLink>
+                </Link>
                 <button
                   type='button'
                   onClick={openModal}

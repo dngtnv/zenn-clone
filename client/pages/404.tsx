@@ -1,7 +1,7 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { ReactElement } from 'react'
 import Layout from '../components/Layout'
-import NextLink from '../utils/NextLink'
 import { NextPageWithLayout } from './_app'
 
 const NotFound: NextPageWithLayout = () => {
@@ -12,9 +12,9 @@ const NotFound: NextPageWithLayout = () => {
       </Head>
       <div>
         <h1 className='text-primary text-2xl'>This page could not be found</h1>
-        <NextLink href='/'>
+        <Link href='/'>
           <a>Go back</a>
-        </NextLink>
+        </Link>
       </div>
     </>
   )

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Image from 'next/future/image'
+import Image from 'next/image'
 import SvgMan from '../../public/man-working.svg'
 import LoginModal from './LoginModal'
 

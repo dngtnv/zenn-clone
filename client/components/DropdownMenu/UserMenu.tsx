@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import NextLink from '../../utils/NextLink'
 import SvgToiletPaper from '../Icons/toiletpaper-icon'
 import SvgDocument from '../Icons/document-icon'
 import SvgBook from '../Icons/book-icon'
@@ -10,12 +9,13 @@ import SvgBookopen from '../Icons/bookopen-icon'
 import SvgYen from '../Icons/jpyen-icon'
 import SvgSetting from '../Icons/setting-icon'
 import SvgLogout from '../Icons/logout-icon'
+import Link from 'next/link'
 
 interface Props {
   children: React.ReactNode
 }
 
-const UserMenu: React.FC<Props> = ({ children }: Props) => {
+const UserMenu: React.FC<Props> = ({ children }) => {
   return (
     <Menu as='div' className='relative h-10 ml-[20px]'>
       <Menu.Button>{children}</Menu.Button>
@@ -28,10 +28,10 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
         leaveFrom='transform opacity-100 scale-100'
         leaveTo='transform opacity-0 scale-95'
       >
-        <Menu.Items className='absolute z-[51] overflow-hidden right-0 mt-1 w-[236px] text-[13.5px] origin-top-right divide-y divide-gray-100 rounded-[7px] bg-white shadow-[0_3px_12px_-1px_rgba(4,37,63,25%)] focus:outline-none'>
+        <Menu.Items className='absolute z-[51] overflow-hidden right-0 w-[236px] text-[13.5px] origin-top-right divide-y divide-gray-100 rounded-[7px] bg-white shadow-[0_3px_12px_-1px_rgba(4,37,63,25%)] focus:outline-none'>
           <Menu.Item>
             {({ active }) => (
-              <NextLink
+              <Link
                 href='#'
                 className={`${active && 'bg-main-gray'
                   } leading-[1.5] group flex flex-wrap w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -40,13 +40,13 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                 <div className='text-[0.9em] text-gray-primary w-full'>
                   @dngtnv
                 </div>
-              </NextLink>
+              </Link>
             )}
           </Menu.Item>
           <div>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -56,12 +56,12 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Scraps management
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -71,12 +71,12 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Articles management
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -86,14 +86,14 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Books management
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
           </div>
           <div>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -103,12 +103,12 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Deploy from GitHub
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -118,12 +118,12 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Liked posts
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -133,12 +133,12 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Recent reading book
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -148,12 +148,12 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Earning Dashboard
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -163,14 +163,14 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Account settings
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
           </div>
           <div>
             <Menu.Item>
               {({ active }) => (
-                <NextLink
+                <Link
                   href='#'
                   className={`${active && 'bg-main-gray'
                     } leading-[1.5] group text-primary flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
@@ -180,7 +180,7 @@ const UserMenu: React.FC<Props> = ({ children }: Props) => {
                     aria-hidden='true'
                   />
                   Log out
-                </NextLink>
+                </Link>
               )}
             </Menu.Item>
           </div>

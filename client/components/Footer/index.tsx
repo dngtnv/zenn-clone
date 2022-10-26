@@ -1,4 +1,4 @@
-import NextLink from '../../utils/NextLink'
+import Link from 'next/link'
 import SvgZenn from '../Icons/zenn-logo'
 
 const Footer: React.FC = () => {
@@ -7,9 +7,9 @@ const Footer: React.FC = () => {
       <div className='mx-auto px-5 tablet:px-[25px] laptop:px-[40px] max-w-full desktop:max-w-[1200px]'>
         <div className='block tablet:grid tablet:grid-cols-3 tablet:gap-x-5 laptop:grid-cols-4 laptop:gap-x-[3%]'>
           <div className='text-[0.88rem] mb-6 col-span-3 laptop:mb-0 laptop:col-span-1'>
-            <NextLink href='/' className='inline-flex'>
+            <Link href='/' className='inline-flex'>
               <SvgZenn width={85} height={20} />
-            </NextLink>
+            </Link>
             <p className='my-[0.3rem] text-gray-primary text-[13.5px] leading-[1.6] pr-0 laptop:pr-9'>
               Information sharing community for engineers
             </p>
@@ -20,34 +20,34 @@ const Footer: React.FC = () => {
             </h4>
             <ul>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   About Zenn
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Community guidelines
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Usage
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Frequently Asked Questions
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Release Notes
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Development Roadmap
-                </NextLink>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -57,24 +57,24 @@ const Footer: React.FC = () => {
             </h4>
             <ul>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Terms of service
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Privacy policy
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Transaction law
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Classmethod
-                </NextLink>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -84,24 +84,24 @@ const Footer: React.FC = () => {
             </h4>
             <ul>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Media kit
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   Twitter
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   GitHub
-                </NextLink>
+                </Link>
               </li>
               <li className='my-[0.6rem]'>
-                <NextLink href='#' className='hover:underline'>
+                <Link href='#' className='hover:underline'>
                   RSS
-                </NextLink>
+                </Link>
               </li>
             </ul>
           </nav>

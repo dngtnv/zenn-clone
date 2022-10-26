@@ -7,7 +7,7 @@ import SvgArrow from '../components/Icons/arrow-icon'
 import Tooltip from '../components/Tooltip'
 import ArticleList from '../components/Articles/ArticleList'
 import LoginCta from '../components/Login/LoginCta'
-import NextLink from '../utils/NextLink'
+import Link from 'next/link'
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -36,13 +36,13 @@ const Home: NextPageWithLayout = () => {
               <ArticleList />
             </div>
             <div className='mt-[2.2rem] text-center font-[1.02rem]'>
-              <NextLink
+              <Link
                 href='#'
                 className='inline-block text-[0.956rem] tablet:text-[1.02rem] text-blue-darker hover:underline hover:underline-offset-[0.3em]'
               >
                 More Trending
                 <SvgArrow size={16.31} />
-              </NextLink>
+              </Link>
             </div>
           </div>
         </section>
@@ -62,13 +62,13 @@ const Home: NextPageWithLayout = () => {
               <ArticleList />
             </div>
             <div className='mt-[2.2rem] text-center font-[1.02rem]'>
-              <NextLink
+              <Link
                 href='#'
                 className='inline-block text-[0.956rem] tablet:text-[1.02rem] text-blue-darker hover:underline hover:underline-offset-[0.3em]'
               >
                 More articles
                 <SvgArrow size={16.31} />
-              </NextLink>
+              </Link>
             </div>
           </div>
         </section>
