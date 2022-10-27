@@ -22,7 +22,8 @@ a {
   transition: all 0.25s ease 0s;
 }
 button {
-  border: none;
+  /* border: none; */
+  outline: none;
   cursor: pointer;
   appearance: none;
   transition: all 0.25s ease 0s;

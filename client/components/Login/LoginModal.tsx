@@ -58,12 +58,20 @@ export default function LoginModal(props: Props) {
                   >
                     Zenn is a technical information sharing platform. Share your
                     knowledge and ideas.
-                    <Link href='/about'>
-                      <a className='text-blue-lighter'> Zenn concept</a>
+                    <Link href='/about' className='text-blue-lighter'>
+                      Zenn concept
                     </Link>
                   </Dialog.Title>
                   <div className='mt-[1.3rem]'>
-                    <Link href={getGoogleOauthUrl()}>LOGIN</Link>
+                    <Link
+                      href={getGoogleOauthUrl()}
+                      className='inline-flex items-center leading-[1.4rem] whitespace-nowrap rounded-[0.45rem] justify-center border border-gray-bd-lighter bg-[#eff6fb99] px-[1.5em] py-[0.6em] text-[1rem] font-semibold text-primary shadow-[0_3px_5px_-2px_rgba(33,37,56,0.25)] transition ease-out duration-[0.25s] hover:bg-[#edf2f7] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 focus-visible:ring-offset-2'
+                    >
+                      <span className='inline-flex items-center mr-[0.7em]'>
+                        <SvgGoogle />
+                      </span>
+                      Login with Google
+                    </Link>
                     {/* <button
                       type='button'
                       className='inline-flex items-center leading-[1.4rem] whitespace-nowrap rounded-[0.45rem] justify-center border border-gray-bd-lighter bg-[#eff6fb99] px-[1.5em] py-[0.6em] text-[1rem] font-semibold text-primary shadow-[0_3px_5px_-2px_rgba(33,37,56,0.25)] transition ease-out duration-[0.25s] hover:bg-[#edf2f7] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-200 focus-visible:ring-offset-2'

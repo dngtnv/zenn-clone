@@ -5,6 +5,7 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import fetcher from '../../utils/fetcher'
 import AddnewMenu from '../DropdownMenu/AddnewMenu'
+import NotifMenu from '../DropdownMenu/NotifMenu'
 import UserMenu from '../DropdownMenu/UserMenu'
 import SvgBell from '../Icons/bell-icon'
 import SvgSearch from '../Icons/search-icon'
@@ -40,7 +41,7 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
     setIsOpen(true)
   }
 
-  if (!data) {
+  if (data) {
     return (
       <header>
         <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
@@ -58,13 +59,13 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
                 </Link>
                 <div className='flex items-center content-center ml-4'>
                   <div className='text-secondary w-[23px] h-[23px]'>
-                    <button className='text-secondary hover:text-primary transition duration-[250ms] ease-out'>
+                    <NotifMenu className='text-secondary hover:text-primary transition duration-[250ms] ease-out'>
                       <SvgBell size={23} />
-                    </button>
+                    </NotifMenu>
                   </div>
                   <UserMenu>
                     <Image
-                      className='object-cover border border-transparent rounded-[50%]'
+                      className='object-cover border border-gray-bd-lighter rounded-[50%]'
                       src={data ? data.picture : '/ingodwhotrust.jpg'}
                       width={40}
                       height={40}

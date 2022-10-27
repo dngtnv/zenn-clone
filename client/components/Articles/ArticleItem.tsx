@@ -38,7 +38,7 @@ const ArticleItem: React.FC<IArticleList> = ({
             <div className='shrink-0'>
               <Link href='#' className='flex'>
                 <Image
-                  className='rounded-[50%] block w-[26px] aspect-auto h-auto shrink-0 font-[11px]'
+                  className='rounded-[50%] block w-[26px] aspect-auto h-[26px] shrink-0 font-[11px]'
                   src={authorAvatar}
                   width={26}
                   height={26}
