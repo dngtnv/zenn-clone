@@ -31,14 +31,14 @@ const deserializeUser = async (
     if (newAccessToken) {
       res.setHeader('x-access-token', newAccessToken)
 
-      /* res.cookie('accessToken', newAccessToken, {
+      res.cookie('accessToken', newAccessToken, {
         maxAge: 900000, // 15 mins
         httpOnly: true,
         domain: 'localhost',
         path: '/',
         sameSite: 'strict',
         secure: false,
-      }) */
+      })
     }
 
     const result = verifyJwt(newAccessToken as string)

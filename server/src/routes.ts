@@ -12,13 +12,13 @@ function routes(app: Express) {
   app.get('/ping', (req, res, next) =>
     res.status(200).json({ message: 'pong' })
   )
-
+  // Login with Google oauth
   app.get('/api/oauth/google', googleOauthHandler)
 
-  app.get('/api/user/me', requireUser, getCurrentUser)
+  app.get('/api/me', requireUser, getCurrentUser)
 
   app.get('/api/sessions', requireUser, getUserSessionsHandler)
 
-  app.delete('/api/sessions', requireUser, deleteSessionHandler)
+  app.delete('/api/sign_out', requireUser, deleteSessionHandler)
 }
 export default routes

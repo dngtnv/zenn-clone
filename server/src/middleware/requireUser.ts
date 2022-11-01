@@ -8,7 +8,7 @@ export const requireUser = (
   const user = res.locals.user
 
   if (!user) {
-    return res.sendStatus(403)
+    return res.status(403).json({ message: 'Please login' })
   }
   return next()
 }

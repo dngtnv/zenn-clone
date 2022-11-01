@@ -57,7 +57,7 @@ const StartServer = () => {
   routes(app)
   // Error handling
   app.use((req, res, next) => {
-    const error = new Error('not found')
+    const error = new Error('Not Found')
     logger.error(error)
     return res.status(404).json({ message: error.message })
   })

@@ -38,7 +38,10 @@ export const deleteSessionHandler = async (req: Request, res: Response) => {
   const sessionId = res.locals.user.session
 
   await updateSession({ _id: sessionId }, { valid: false })
-  return res.send({
+  res.clearCookie('accessToken')
+  res.clearCookie('refreshToken')
+  res.redirect(config.origin)
+  return res.status(204).json({
     accessToken: null,
     refreshToken: null,
   })
