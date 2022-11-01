@@ -10,12 +10,24 @@ import SvgYen from '../Icons/jpyen-icon'
 import SvgSetting from '../Icons/setting-icon'
 import SvgLogout from '../Icons/logout-icon'
 import Link from 'next/link'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 interface Props {
   children: React.ReactNode
 }
 
+function Signout() {
+  axios
+    .delete('http://localhost:5000/api/sign_out', { withCredentials: true })
+    .then((res) => console.log(res))
+    .catch(function (error) {
+      console.error(error)
+    })
+}
+
 const UserMenu: React.FC<Props> = ({ children }) => {
+  const router = useRouter()
   return (
     <Menu as='div' className='relative h-10 ml-[20px]'>
       <Menu.Button>{children}</Menu.Button>
@@ -33,8 +45,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             {({ active }) => (
               <Link
                 href='#'
-                className={`${active && 'bg-main-gray'
-                  } leading-[1.5] group flex flex-wrap w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                className={`${
+                  active && 'bg-main-gray'
+                } leading-[1.5] group flex flex-wrap w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
               >
                 <div className='font-bold text-primary w-full'>dngtnv</div>
                 <div className='text-[0.9em] text-gray-primary w-full'>
@@ -48,8 +61,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgToiletPaper
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -63,8 +77,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgDocument
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -78,8 +93,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgBook
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -95,8 +111,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgDeploy
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -110,8 +127,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgFavorite
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -125,8 +143,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgBookopen
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -140,8 +159,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgYen
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -155,8 +175,9 @@ const UserMenu: React.FC<Props> = ({ children }) => {
               {({ active }) => (
                 <Link
                   href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgSetting
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
@@ -170,17 +191,21 @@ const UserMenu: React.FC<Props> = ({ children }) => {
           <div>
             <Menu.Item>
               {({ active }) => (
-                <Link
-                  href='#'
-                  className={`${active && 'bg-main-gray'
-                    } leading-[1.5] group text-primary flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                <button
+                  onClick={() => {
+                    Signout()
+                    router.reload()
+                  }}
+                  className={`${
+                    active && 'bg-main-gray'
+                  } leading-[1.5] group text-primary flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
                 >
                   <SvgLogout
                     className='text-gray-primary mr-[0.6em] h-5 w-5'
                     aria-hidden='true'
                   />
                   Log out
-                </Link>
+                </button>
               )}
             </Menu.Item>
           </div>

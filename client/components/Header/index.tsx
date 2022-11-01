@@ -1,4 +1,3 @@
-import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -25,11 +24,11 @@ interface User {
   exp: number
 }
 
-const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
+const Header = () => {
   const { data } = useSWR<User | null>(
-    `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/user/me`,
+    `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
     fetcher,
-    { fallbackData }
+    { revalidateOnFocus: false }
   )
 
   let [isOpen, setIsOpen] = useState(false)
@@ -117,14 +116,6 @@ const Header: React.FC<{ fallbackData?: User }> = ({ fallbackData }) => {
       <LoginModal isOpen={isOpen} closeModal={closeModal} />
     </>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await fetcher(
-    `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/user/me`,
-    context.req.headers
-  )
-  return { props: { fallbackData: data } }
 }
 
 export default Header
