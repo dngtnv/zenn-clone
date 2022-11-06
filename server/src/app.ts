@@ -56,11 +56,11 @@ const StartServer = () => {
   // Routes
   routes(app)
   // Error handling
-  app.use((req, res, next) => {
+  /* app.use((req, res, next) => {
     const error = new Error('Not Found')
     logger.error(error)
     return res.status(404).json({ message: error.message })
-  })
+  }) */
 
   http.createServer(app).listen(port, () => {
     connectToDB()

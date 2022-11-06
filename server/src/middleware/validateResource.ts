@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Request, Response, NextFunction } from 'express'
 import { AnyZodObject } from 'zod'
 
@@ -11,8 +12,8 @@ const validate =
           params: req.params,
         })
         next()
-      } catch (e: any) {
-        return res.status(400).send(e.errors)
+      } catch (err: any) {
+        return res.status(400).send(err.errors)
       }
     }
 

@@ -4,7 +4,10 @@ import config from '../config/default'
 const privateKey = config.privateKey as string
 const publicKey = config.publicKey as string
 
-export function signJwt(payload: any, options?: jwt.SignOptions | undefined) {
+export function signJwt(
+  payload: object,
+  options?: jwt.SignOptions | undefined
+) {
   return jwt.sign(payload, privateKey, {
     ...(options && options),
     algorithm: 'RS256',

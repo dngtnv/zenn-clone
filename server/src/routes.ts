@@ -5,7 +5,9 @@ import {
 } from './controller/session.controller'
 import { Express } from 'express'
 import { requireUser } from './middleware/requireUser'
-import { getCurrentUser } from './controller/user.controller'
+import { getCurrentUser, updateUserHandler } from './controller/user.controller'
+import validateResource from './middleware/validateResource'
+import { updateUserSchema } from './schema/user.schema'
 
 function routes(app: Express) {
   // Healthcheck
@@ -20,5 +22,11 @@ function routes(app: Express) {
   app.get('/api/sessions', requireUser, getUserSessionsHandler)
 
   app.delete('/api/sign_out', requireUser, deleteSessionHandler)
+
+  app.put(
+    '/api/users/:userId',
+    [requireUser, validateResource(updateUserSchema)],
+    updateUserHandler
+  )
 }
 export default routes

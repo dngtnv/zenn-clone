@@ -38,13 +38,20 @@ export const deleteSessionHandler = async (req: Request, res: Response) => {
   const sessionId = res.locals.user.session
 
   await updateSession({ _id: sessionId }, { valid: false })
-  res.clearCookie('accessToken')
-  res.clearCookie('refreshToken')
-  res.redirect(config.origin)
-  return res.status(204).json({
+  res.cookie('accessToken', '', {
+    maxAge: 0,
+    httpOnly: true,
+  })
+  res.cookie('refreshToken', '', {
+    maxAge: 0,
+    httpOnly: true,
+  })
+  res.redirect(204, config.origin)
+  // Error (cause when using redirect & status function)
+  /* return res.status(204).json({
     accessToken: null,
     refreshToken: null,
-  })
+  }) */
 }
 
 export const googleOauthHandler = async (req: Request, res: Response) => {
@@ -69,7 +76,7 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
       {
         email: googleUser.email,
         name: googleUser.name,
-        picture: googleUser.picture,
+        avatarUrl: googleUser.picture,
       },
       {
         upsert: true,
