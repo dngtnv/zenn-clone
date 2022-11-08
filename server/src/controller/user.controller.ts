@@ -12,21 +12,19 @@ export const updateUserHandler = async (
   res: Response
 ) => {
   const userId = res.locals.user._id
-  console.log(userId)
 
   const update = req.body
   const user = await findUser({ _id: userId })
-  console.log(user)
 
   if (!user) {
-    return res.sendStatus(404)
+    return res.status(404).json({ message: 'User does not exist' })
   }
   if (String(user._id) !== userId) {
-    return res.sendStatus(404)
+    return res.status(404).json({ message: 'Not Found' })
   }
 
   const updateUser = await findAndUpdateUser({ userId }, update, {
-    new: false,
+    new: true,
   })
   return res.send(updateUser)
 }

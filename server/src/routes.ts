@@ -2,6 +2,7 @@ import {
   googleOauthHandler,
   getUserSessionsHandler,
   deleteSessionHandler,
+  refreshAccessTokenHandler,
 } from './controller/session.controller'
 import { Express } from 'express'
 import { requireUser } from './middleware/requireUser'
@@ -28,5 +29,7 @@ function routes(app: Express) {
     [requireUser, validateResource(updateUserSchema)],
     updateUserHandler
   )
+
+  app.post('/api/sessions/refresh', refreshAccessTokenHandler)
 }
 export default routes

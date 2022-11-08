@@ -7,10 +7,12 @@ import { CookieOptions, Request, Response } from 'express'
 import {
   createSession,
   findSessions,
+  reIssueAccessToken,
   updateSession,
 } from '../service/session.service'
-import { signJwt } from '../utils/jwt.utils'
+import { signJwt, verifyJwt } from '../utils/jwt.utils'
 import config from '../config/default'
+import { get } from 'lodash'
 
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 900000, // 15 mins
@@ -76,7 +78,9 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
       {
         email: googleUser.email,
         name: googleUser.name,
+        username: '',
         avatarUrl: googleUser.picture,
+        bio: '',
       },
       {
         upsert: true,
@@ -103,5 +107,36 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error)
     return res.redirect(`${config.origin}/oauth/error`)
+  }
+}
+
+export const refreshAccessTokenHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const refreshToken =
+    get(req, 'cookies.refreshToken') || get(req, 'headers.x-refresh')
+
+  if (!refreshToken) return false
+
+  const decoded = verifyJwt(refreshToken)
+
+  if (!decoded) {
+    return res.status(401).send('Could not refresh access token')
+  }
+
+  const newAccessToken = await reIssueAccessToken({ refreshToken })
+  if (newAccessToken) {
+    res.setHeader('x-access-token', newAccessToken)
+
+    res.cookie('accessToken', newAccessToken, {
+      maxAge: 900000, // 15 mins
+      httpOnly: true,
+      domain: 'localhost',
+      path: '/',
+      sameSite: 'strict',
+      secure: false,
+    })
+    return res.send({ newAccessToken })
   }
 }

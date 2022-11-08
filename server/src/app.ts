@@ -1,12 +1,12 @@
 import express from 'express'
 import cors from 'cors'
-import routes from './routes'
 import { connectToDB } from './db/connect'
 import logger from './library/logger'
 import http from 'http'
 import config from '../src/config/default'
 import deserializeUser from './middleware/deserializeUser'
 import cookieParser from 'cookie-parser'
+import router from './routes'
 
 const port = config.port || 5000
 const app = express()
@@ -53,14 +53,17 @@ const StartServer = () => {
     }
     next()
   })
+
   // Routes
-  routes(app)
+  app.use(router)
+  // routes(app)
+
   // Error handling
-  /* app.use((req, res, next) => {
+  app.use((req, res, next) => {
     const error = new Error('Not Found')
     logger.error(error)
     return res.status(404).json({ message: error.message })
-  }) */
+  })
 
   http.createServer(app).listen(port, () => {
     connectToDB()
