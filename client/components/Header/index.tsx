@@ -1,3 +1,4 @@
+import { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -15,7 +16,9 @@ interface User {
   _id: string
   email: string
   name: string
-  picture: string
+  username: string
+  bio: string
+  avatarUrl: string
   createdAt: Date
   updatedAt: Date
   __v: number
@@ -24,11 +27,11 @@ interface User {
   exp: number
 }
 
-const Header = () => {
+const Header: NextPage<{ fallbackData: User }> = ({ fallbackData }) => {
   const { data } = useSWR<User | null>(
     `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
     fetcher,
-    { revalidateOnFocus: false }
+    { fallbackData, revalidateOnFocus: false }
   )
 
   let [isOpen, setIsOpen] = useState(false)
@@ -65,7 +68,7 @@ const Header = () => {
                   <UserMenu>
                     <Image
                       className='object-cover border border-gray-bd-lighter rounded-[50%]'
-                      src={data ? data.picture : '/ingodwhotrust.jpg'}
+                      src={data ? data.avatarUrl : '/ingodwhotrust.jpg'}
                       width={40}
                       height={40}
                       alt=''
@@ -116,6 +119,14 @@ const Header = () => {
       <LoginModal isOpen={isOpen} closeModal={closeModal} />
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const data = await fetcher(
+    `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
+    context.req.headers
+  )
+  return { props: { fallbackData: data } }
 }
 
 export default Header

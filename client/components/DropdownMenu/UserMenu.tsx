@@ -17,9 +17,14 @@ interface Props {
   children: React.ReactNode
 }
 
-function Signout() {
-  axios
-    .delete('http://localhost:5000/api/sign_out', { withCredentials: true })
+async function Signout() {
+  await axios
+    .delete('http://localhost:5000/api/sign_out', {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      withCredentials: true,
+    })
     .then((res) => console.log(res))
     .catch(function (error) {
       console.error(error)
