@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import useSWR from 'swr'
-import fetcher from '../../utils/fetcher'
+import { privateFetcher } from '../../utils/fetcher'
 import AddnewMenu from '../DropdownMenu/AddnewMenu'
 import NotifMenu from '../DropdownMenu/NotifMenu'
 import UserMenu from '../DropdownMenu/UserMenu'
@@ -16,7 +16,6 @@ interface User {
   _id: string
   email: string
   name: string
-  username: string
   bio: string
   avatarUrl: string
   createdAt: Date
@@ -30,7 +29,7 @@ interface User {
 const Header: NextPage<{ fallbackData: User }> = ({ fallbackData }) => {
   const { data } = useSWR<User | null>(
     `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
-    fetcher,
+    privateFetcher,
     { fallbackData, revalidateOnFocus: false }
   )
 
@@ -121,10 +120,9 @@ const Header: NextPage<{ fallbackData: User }> = ({ fallbackData }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await fetcher(
-    `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
-    context.req.headers
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await privateFetcher(
+    `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`
   )
   return { props: { fallbackData: data } }
 }

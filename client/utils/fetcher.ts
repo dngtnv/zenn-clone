@@ -1,18 +1,23 @@
-import axios from 'axios'
+import { axiosPrivate } from '../utils/axios'
 
-/* const fetcher = (url: string) => fetch(url).then((res) => res.json())
-
-export default fetcher */
-const fetcher = async <T>(url: string, headers = {}): Promise<T | null> => {
+export const privateFetcher = async <T>(url: string): Promise<T | null> => {
+  axiosPrivate.interceptors.response.use(
+    (response) => response,
+    async (error) => {
+      const prevRequest = error?.config
+      if (error?.response?.status === 403 && !prevRequest.sent) {
+        prevRequest.sent = true
+        const newAccessToken = await axiosPrivate.get('/sessions/refresh')
+        prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
+        return axiosPrivate(prevRequest)
+      }
+      return Promise.reject(error)
+    }
+  )
   try {
-    const { data } = await axios.get<T>(url, {
-      headers,
-      withCredentials: true,
-    })
+    const { data } = await axiosPrivate.get<T>(url)
     return data
   } catch (error) {
     return null
   }
 }
-
-export default fetcher
