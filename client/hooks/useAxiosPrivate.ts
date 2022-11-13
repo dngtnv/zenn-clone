@@ -6,15 +6,16 @@ export const useAxiosPrivate = () => {
   const refresh = useRefreshToken()
 
   useEffect(() => {
-    /* const requestIntercept = axiosPrivate.interceptors.request.use(
+    const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {
-        if (!config.headers['Authorization']) {
-          config.headers['Authorization'] = `Bearer accessToken.replacethis`
-        }
+        console.log('Before request::')
+        /* if (!config.headers!['Authorization']) {
+          config.headers!['Authorization'] = `Bearer ${auth?.accessToken}`
+        } */
         return config
       },
       (error) => Promise.reject(error)
-    ) */
+    )
 
     const responseIntercept = axiosPrivate.interceptors.response.use(
       (response) => response,
@@ -31,7 +32,7 @@ export const useAxiosPrivate = () => {
     )
 
     return () => {
-      // axiosPrivate.interceptors.request.eject(requestIntercept)
+      axiosPrivate.interceptors.request.eject(requestIntercept)
       axiosPrivate.interceptors.response.eject(responseIntercept)
     }
   }, [refresh])

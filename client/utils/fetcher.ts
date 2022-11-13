@@ -9,7 +9,7 @@ export const privateFetcher = async <T>(url: string): Promise<T | null> => {
         prevRequest.sent = true
         const newAccessToken = await axiosPrivate.get('/sessions/refresh')
         prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
-        return axiosPrivate(prevRequest)
+        return axiosPrivate(prevRequest.url)
       }
       return Promise.reject(error)
     }

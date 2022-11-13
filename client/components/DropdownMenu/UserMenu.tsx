@@ -10,17 +10,20 @@ import SvgYen from '../Icons/jpyen-icon'
 import SvgSetting from '../Icons/setting-icon'
 import SvgLogout from '../Icons/logout-icon'
 import Link from 'next/link'
-import { axiosPrivate } from '../../utils/axios'
+import useLogout from '../../hooks/useLogout'
 
 interface Props {
   children: React.ReactNode
 }
 
-async function Signout() {
-  await axiosPrivate.delete('/sign_out')
-}
-
 const UserMenu: React.FC<Props> = ({ children }) => {
+  const logout = useLogout()
+
+  const signOut = async () => {
+    await logout()
+    window.location.assign('/')
+  }
+
   return (
     <Menu as='div' className='relative h-10 ml-[20px]'>
       <Menu.Button>{children}</Menu.Button>
@@ -185,9 +188,7 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <button
-                  onClick={() => {
-                    Signout()
-                  }}
+                  onClick={signOut}
                   className={`${
                     active && 'bg-main-gray'
                   } leading-[1.5] group text-primary flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}

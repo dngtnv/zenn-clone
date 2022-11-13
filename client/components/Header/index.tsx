@@ -2,8 +2,6 @@ import { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import useSWR from 'swr'
-import { privateFetcher } from '../../utils/fetcher'
 import AddnewMenu from '../DropdownMenu/AddnewMenu'
 import NotifMenu from '../DropdownMenu/NotifMenu'
 import UserMenu from '../DropdownMenu/UserMenu'
@@ -11,28 +9,19 @@ import SvgBell from '../Icons/bell-icon'
 import SvgSearch from '../Icons/search-icon'
 import SvgZenn from '../Icons/zenn-logo'
 import LoginModal from '../Login/LoginModal'
+import useSWR from 'swr'
+import { privateFetcher } from '../../utils/fetcher'
+import { IUser } from '../../types/index'
 
-interface User {
-  _id: string
-  email: string
-  name: string
-  bio: string
-  avatarUrl: string
-  createdAt: Date
-  updatedAt: Date
-  __v: number
-  session: string
-  iat: number
-  exp: number
-}
-
-const Header: NextPage<{ fallbackData: User }> = ({ fallbackData }) => {
-  const { data } = useSWR<User | null>(
+const Header: NextPage<{ fallbackData: IUser }> = ({ fallbackData }) => {
+  const { data } = useSWR<IUser | null>(
     `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
     privateFetcher,
-    { fallbackData, revalidateOnFocus: false }
+    {
+      fallbackData,
+      revalidateOnFocus: false,
+    }
   )
-
   let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
