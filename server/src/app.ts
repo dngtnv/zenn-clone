@@ -6,7 +6,7 @@ import http from 'http'
 import config from '../src/config/default'
 import deserializeUser from './middleware/deserializeUser'
 import cookieParser from 'cookie-parser'
-import router from './routes'
+import router from './routes/index'
 
 const port = config.port || 5000
 const app = express()

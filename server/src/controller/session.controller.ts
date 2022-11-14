@@ -15,7 +15,7 @@ import config from '../config/default'
 import { get } from 'lodash'
 
 const accessTokenCookieOptions: CookieOptions = {
-  maxAge: 900000, // 15 mins
+  maxAge: 60000, // 1 min
   httpOnly: true,
   domain: 'localhost',
   path: '/',
@@ -25,7 +25,7 @@ const accessTokenCookieOptions: CookieOptions = {
 
 const refreshTokenCookieOptions: CookieOptions = {
   ...accessTokenCookieOptions,
-  maxAge: 3.154e10, // 1 year
+  maxAge: 86400000, // 1 day
 }
 
 export const getUserSessionsHandler = async (req: Request, res: Response) => {
@@ -48,12 +48,12 @@ export const deleteSessionHandler = async (req: Request, res: Response) => {
     maxAge: 0,
     httpOnly: true,
   })
-  res.redirect(204, config.origin)
+  // return res.redirect(204, config.origin)
   // Error (cause when using redirect & status function)
-  /* return res.status(204).json({
+  return res.status(204).json({
     accessToken: null,
     refreshToken: null,
-  }) */
+  })
 }
 
 export const googleOauthHandler = async (req: Request, res: Response) => {
@@ -92,18 +92,18 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
     // create access & refresh tokens
     const accessToken = signJwt(
       { ...user?.toJSON(), session: session._id },
-      { expiresIn: config.accessTokenTtl } // 15 minutes
+      { expiresIn: config.accessTokenTtl } // 1 min
     )
     const refreshToken = signJwt(
       { ...user?.toJSON(), session: session._id },
-      { expiresIn: config.refreshTokenTtl } // 1 year
+      { expiresIn: config.refreshTokenTtl } // 1 day
     )
     // set cookies
     res.cookie('accessToken', accessToken, accessTokenCookieOptions)
-
     res.cookie('refreshToken', refreshToken, refreshTokenCookieOptions)
+
     // redirect back to client
-    res.redirect(config.origin)
+    return res.redirect(config.origin)
   } catch (error) {
     console.log(error)
     return res.redirect(`${config.origin}/oauth/error`)
@@ -130,13 +130,13 @@ export const refreshAccessTokenHandler = async (
     res.setHeader('x-access-token', newAccessToken)
 
     res.cookie('accessToken', newAccessToken, {
-      maxAge: 900000, // 15 mins
+      maxAge: 60000, // 1 min
       httpOnly: true,
       domain: 'localhost',
       path: '/',
       sameSite: 'strict',
       secure: false,
     })
-    return res.send({ newAccessToken })
+    return res.json({ newAccessToken })
   }
 }

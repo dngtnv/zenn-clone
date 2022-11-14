@@ -16,6 +16,6 @@ router.get('/api/sessions', requireUser, getUserSessionsHandler)
 
 router.delete('/api/sign_out', requireUser, deleteSessionHandler)
 
-router.post('/api/sessions/refresh', refreshAccessTokenHandler)
+router.get('/api/sessions/refresh', refreshAccessTokenHandler)
 
 export default router

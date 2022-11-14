@@ -4,6 +4,7 @@ import { findAndUpdateUser, findUser } from '../service/user.service'
 
 export const getCurrentUser = async (req: Request, res: Response) => {
   res.setHeader('Cache-Control', 'private, max-age=0, must-validate')
+  res.set({ 'x-access-token': req.cookies['accessToken'] })
   return res.send(res.locals.user)
 }
 
