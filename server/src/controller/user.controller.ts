@@ -27,5 +27,5 @@ export const updateUserHandler = async (
   const updateUser = await findAndUpdateUser({ userId }, update, {
     new: true,
   })
-  return res.send(updateUser)
+  return res.json({ updateUser })
 }

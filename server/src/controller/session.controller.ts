@@ -120,9 +120,15 @@ export const refreshAccessTokenHandler = async (
   if (!refreshToken) return false
 
   const decoded = verifyJwt(refreshToken)
+  console.log({ decoded })
 
   if (!decoded) {
-    return res.status(401).send('Could not refresh access token')
+    return res.status(401).json({ message: 'Could not refresh access token' })
+  }
+  if (decoded.valid === false) {
+    return res
+      .status(401)
+      .json({ message: 'Invalid refresh token, please login again!' })
   }
 
   const newAccessToken = await reIssueAccessToken({ refreshToken })
