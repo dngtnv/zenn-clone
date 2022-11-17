@@ -31,15 +31,15 @@ const Header: NextPage<{ fallbackData: IUser }> = ({ fallbackData }) => {
     setIsOpen(true)
   }
 
-  if (data) {
-    return (
-      <header>
-        <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
-          <div className='flex justify-between items-center'>
-            <Link href='/' className='flex items-center h-[62px]'>
-              <SvgZenn height={22} />
-            </Link>
-            <div className='transition-all duration-[0.3s] ease-in'>
+  return (
+    <header>
+      <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
+        <div className='flex justify-between items-center'>
+          <Link href='/' className='flex items-center h-[62px]'>
+            <SvgZenn height={22} />
+          </Link>
+          <div className='transition-all duration-[0.3s] ease-in'>
+            {data ? (
               <div className='flex items-center'>
                 <Link
                   href='/search'
@@ -69,22 +69,7 @@ const Header: NextPage<{ fallbackData: IUser }> = ({ fallbackData }) => {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </header>
-    )
-  }
-
-  return (
-    <>
-      <header>
-        <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
-          <div className='flex justify-between items-center'>
-            <Link href='/' className='flex items-center h-[62px]'>
-              <SvgZenn height={22} />
-            </Link>
-            <div className='transition-all duration-[0.3s] ease-in'>
+            ) : (
               <div className='flex items-center'>
                 <Link
                   href='/search'
@@ -99,13 +84,13 @@ const Header: NextPage<{ fallbackData: IUser }> = ({ fallbackData }) => {
                 >
                   Log In
                 </button>
+                <LoginModal isOpen={isOpen} closeModal={closeModal} />
               </div>
-            </div>
+            )}
           </div>
         </div>
-      </header>
-      <LoginModal isOpen={isOpen} closeModal={closeModal} />
-    </>
+      </div>
+    </header>
   )
 }
 
