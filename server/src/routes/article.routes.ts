@@ -3,6 +3,7 @@ import {
   createArticleHandler,
   deleteArticleHandler,
   getArticleHandler,
+  getArticlesHandler,
   updateArticleHandler,
 } from '../controller/article.controller'
 import {
@@ -17,25 +18,27 @@ import validateResource from '../middleware/validateResource'
 const router = express.Router()
 
 router.post(
-  '/api/article',
+  '/api/articles',
   [requireUser, validateResource(createArticleSchema)],
   createArticleHandler
 )
 
 router.put(
-  '/api/article/:articleId',
+  '/api/articles/:articleId',
   [requireUser, validateResource(updateArticleSchema)],
   updateArticleHandler
 )
 
 router.get(
-  '/api/article/:articleId',
+  '/api/articles/:articleId',
   validateResource(getArticleSchema),
   getArticleHandler
 )
 
+router.get('/api/articles', getArticlesHandler)
+
 router.delete(
-  '/api/article/:articleId',
+  '/api/articles/:articleId',
   [requireUser, validateResource(deleteArticleSchema)],
   deleteArticleHandler
 )

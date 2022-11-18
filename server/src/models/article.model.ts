@@ -1,10 +1,10 @@
-import mongoose, { Document, Schema } from 'mongoose'
+import { Document, model, Schema } from 'mongoose'
 import { customAlphabet } from 'nanoid'
 import { UserDocument } from './user.model'
 
 const nanoid = customAlphabet('abcdefghijklmnopqrstuvwxyz0123456789', 9)
 
-export interface ArticleInput {
+export interface IArticleInput {
   user: UserDocument['_id']
   articleType: string
   postType?: string
@@ -14,7 +14,7 @@ export interface ArticleInput {
   path?: string
   published?: boolean
 }
-export interface ArticleDocument extends ArticleInput, Document {
+export interface ArticleDocument extends IArticleInput, Document {
   createdAt: Date
   updatedAt: Date
 }
@@ -41,6 +41,6 @@ const articleSchema = new Schema(
   }
 )
 
-const ArticleModel = mongoose.model<ArticleDocument>('Article', articleSchema)
+const ArticleModel = model<ArticleDocument>('Article', articleSchema)
 
 export default ArticleModel

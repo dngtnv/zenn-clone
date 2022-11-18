@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import logger from '../library/logger'
 import {
   CreateArticleInput,
   DeleteArticleInput,
@@ -10,72 +11,106 @@ import {
   deleteArticle,
   findAndUpdateArticle,
   findArticle,
+  getArticles,
 } from '../service/article.service'
 
-export async function createArticleHandler(
+export const createArticleHandler = async (
   // eslint-disable-next-line @typescript-eslint/ban-types
   req: Request<{}, {}, CreateArticleInput['body']>,
   res: Response
-) {
+) => {
   const userId = res.locals.user._id
   const body = req.body
-  const article = await createArticle({ ...body, user: userId })
+  try {
+    const article = await createArticle({ ...body, user: userId })
 
-  return res.json({ article })
+    return res.status(201).json({ article })
+  } catch (err) {
+    logger.error(err)
+  }
 }
 
-export async function updateArticleHandler(
+export const updateArticleHandler = async (
   req: Request<UpdateArticleInput['params']>,
   res: Response
-) {
+) => {
   const userId = res.locals.user._id
   const articleId = req.params.articleId
   const update = req.body
 
-  const article = await findArticle({ articleId })
-  if (!article) {
-    return res.sendStatus(404)
-  }
-  if (String(article.user) !== userId) {
-    return res.sendStatus(403)
-  }
+  await findArticle({ articleId })
+    .then((article) => {
+      if (!article) {
+        return res
+          .status(404)
+          .json({ message: 'This article has been deleted or does not exist' })
+      }
+      if (String(article.user) !== userId) {
+        return res.sendStatus(403)
+      }
+    })
+    .catch((err) => logger.error(err))
 
-  const updateArticle = await findAndUpdateArticle({ articleId }, update, {
+  await findAndUpdateArticle({ articleId }, update, {
     new: true,
   })
-
-  return res.json({ updateArticle })
+    .then((response) => {
+      return res.json({ response })
+    })
+    .catch((err) => logger.error(err))
 }
 
-export async function getArticleHandler(
+export const getArticleHandler = async (
   req: Request<GetArticleInput['params']>,
   res: Response
-) {
+) => {
   const articleId = req.params.articleId
-  const article = await findArticle({ articleId })
-
-  if (!article) {
-    return res.sendStatus(404)
+  try {
+    const article = await findArticle({ articleId })
+    if (!article) {
+      return res
+        .status(404)
+        .json({ message: 'This article has been deleted or does not exist' })
+    }
+    return res.json({ article })
+  } catch (err) {
+    logger.error(err)
   }
-  return res.json({ article })
 }
 
-export async function deleteArticleHandler(
+export const getArticlesHandler = async (req: Request, res: Response) => {
+  await getArticles()
+    .then((articles) => {
+      if (!articles) {
+        return res.status(403).json({ message: 'No articles found' })
+      }
+      return res.status(200).json({ articles })
+    })
+    .catch((err) => logger.error(err))
+}
+
+export const deleteArticleHandler = async (
   req: Request<DeleteArticleInput['params']>,
   res: Response
-) {
+) => {
   const userId = res.locals.user._id
   const articleId = req.params.articleId
 
-  const article = await findArticle({ articleId })
+  await findArticle({ articleId })
+    .then((article) => {
+      if (!article) {
+        return res
+          .status(404)
+          .json({ message: 'This article has been deleted or does not exist' })
+      }
+      if (String(article.user) !== userId) {
+        return res.sendStatus(403)
+      }
+      return res.sendStatus(200)
+    })
+    .catch((err) => logger.error(err))
 
-  if (!article) {
-    return res.sendStatus(404)
-  }
-  if (String(article.user) !== userId) {
-    return res.sendStatus(403)
-  }
   await deleteArticle({ articleId })
-
-  return res.sendStatus(200)
+    .then((response) => logger.info(response))
+    .catch((err) => logger.error(err))
 }

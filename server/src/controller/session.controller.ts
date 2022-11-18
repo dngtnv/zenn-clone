@@ -1,18 +1,18 @@
+import { CookieOptions, Request, Response } from 'express'
+import { signJwt, verifyJwt } from '../utils/jwt.utils'
+import config from '../config/default'
+import { get } from 'lodash'
 import {
   findAndUpdateUser,
   getGoogleOauthTokens,
   getGoogleUser,
 } from '../service/user.service'
-import { CookieOptions, Request, Response } from 'express'
 import {
   createSession,
   findSessions,
   reIssueAccessToken,
   updateSession,
 } from '../service/session.service'
-import { signJwt, verifyJwt } from '../utils/jwt.utils'
-import config from '../config/default'
-import { get } from 'lodash'
 
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 60000, // 1 min
@@ -133,15 +133,9 @@ export const refreshAccessTokenHandler = async (
 
   const newAccessToken = await reIssueAccessToken({ refreshToken })
   if (newAccessToken) {
-    res.setHeader('x-access-token', newAccessToken)
-
     res.cookie('accessToken', newAccessToken, {
-      maxAge: 60000, // 1 min
-      httpOnly: true,
-      domain: 'localhost',
-      path: '/',
+      ...accessTokenCookieOptions,
       sameSite: 'strict',
-      secure: false,
     })
     return res.json({ newAccessToken })
   }
