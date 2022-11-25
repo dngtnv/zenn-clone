@@ -13,6 +13,8 @@ body {
   margin: 0;
   font-size: 16px;
   line-height: 1.8rem;
+  /* word-break: break-word;
+  word-wrap: break-word; */
 }
 
 a {
@@ -23,7 +25,7 @@ a {
 }
 button {
   /* border: none; */
-  outline: none;
+  outline-offset: 2px;
   cursor: pointer;
   appearance: none;
   transition: all 0.25s ease 0s;

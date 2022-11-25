@@ -1,17 +1,23 @@
 import { createContext, ReactNode, useState } from 'react'
+import { IUser } from '../types'
 
-const AuthContext = createContext({
-  isLoggedIn: false,
-  setIsLoggedIn: (_value: boolean) => {},
+type UserContextType = {
+  me: IUser
+  setMe: (_value: IUser) => void
+}
+
+const AuthContext = createContext<UserContextType>({
+  me: {} as IUser,
+  setMe: () => {},
 })
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [me, setMe] = useState<IUser>({} as IUser)
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <AuthContext.Provider value={{ me, setMe }}>
       {children}
     </AuthContext.Provider>
   )

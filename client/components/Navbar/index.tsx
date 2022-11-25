@@ -10,28 +10,31 @@ const Navbar = () => {
         <div className='flex justify-start items-center'>
           <Link
             href='/'
-            className={`${router.pathname == '/'
+            className={`${
+              router.pathname == '/'
                 ? 'text-primary border-b-[2.5px] border-b-primary'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-              } 'text-base font-semibold mr-[27.2px] py-2`}
+            } 'text-base font-semibold mr-[27.2px] py-2`}
           >
             Trending
           </Link>
           <Link
             href='/following'
-            className={`${router.pathname == '/following'
+            className={`${
+              router.pathname == '/following'
                 ? 'text-primary border-b-[2.5px] border-b-primary'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-              } 'text-base font-semibold mr-[27.2px] py-2`}
+            } 'text-base font-semibold mr-[27.2px] py-2`}
           >
             Following
           </Link>
           <Link
             href='/explore'
-            className={`${router.pathname == '/explore'
+            className={`${
+              router.pathname == '/explore'
                 ? 'text-primary border-b-[2.5px] border-b-primary'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-              } 'text-base font-semibold mr-[27.2px] py-2`}
+            } 'text-base font-semibold mr-[27.2px] py-2`}
           >
             Explore
           </Link>

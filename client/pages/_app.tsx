@@ -5,7 +5,7 @@ import { NextPage } from 'next'
 import { AuthProvider } from '../context/AuthProvider'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: (page: ReactElement) => ReactNode
+  getLayout: (page: ReactElement, pageProps?: AppProps) => ReactNode
 }
 
 type AppPropsWithLayout = AppProps & {
@@ -15,9 +15,15 @@ type AppPropsWithLayout = AppProps & {
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page)
-  return getLayout(
+  /* return getLayout(
+    pageProps.data,
     <AuthProvider>
       <Component {...pageProps} />
+    </AuthProvider>
+  ) */
+  return (
+    <AuthProvider>
+      {getLayout(<Component {...pageProps} />, pageProps.data)}
     </AuthProvider>
   )
 }

@@ -1,7 +1,7 @@
-import { GetServerSideProps, NextPage } from 'next'
+import { GetServerSideProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import AddnewMenu from '../DropdownMenu/AddnewMenu'
 import NotifMenu from '../DropdownMenu/NotifMenu'
 import UserMenu from '../DropdownMenu/UserMenu'
@@ -12,8 +12,12 @@ import LoginModal from '../Login/LoginModal'
 import useSWR from 'swr'
 import { privateFetcher } from '../../utils/fetcher'
 import { IUser } from '../../types/index'
+import AuthContext from '../../context/AuthProvider'
 
-const Header: NextPage<{ fallbackData: IUser }> = ({ fallbackData }) => {
+const Header: React.FC<{ fallbackData?: IUser }> = ({ fallbackData }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const { setMe } = useContext(AuthContext)
+
   const { data } = useSWR<IUser | null>(
     `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
     privateFetcher,
@@ -22,7 +26,16 @@ const Header: NextPage<{ fallbackData: IUser }> = ({ fallbackData }) => {
       revalidateOnFocus: false,
     }
   )
-  let [isOpen, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    if (data) {
+      setMe({
+        username: data.username,
+        bio: data.bio,
+        avatarUrl: data.avatarUrl,
+      })
+    }
+  }, [data])
 
   function closeModal() {
     setIsOpen(false)

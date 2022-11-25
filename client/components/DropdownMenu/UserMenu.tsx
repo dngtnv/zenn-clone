@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useContext } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import SvgToiletPaper from '../Icons/toiletpaper-icon'
 import SvgDocument from '../Icons/document-icon'
@@ -11,6 +11,7 @@ import SvgSetting from '../Icons/setting-icon'
 import SvgLogout from '../Icons/logout-icon'
 import Link from 'next/link'
 import useLogout from '../../hooks/useLogout'
+import AuthContext from '../../context/AuthProvider'
 
 interface Props {
   children: React.ReactNode
@@ -18,6 +19,7 @@ interface Props {
 
 const UserMenu: React.FC<Props> = ({ children }) => {
   const logout = useLogout()
+  const { me } = useContext(AuthContext)
 
   const signOut = async () => {
     await logout()
@@ -40,14 +42,16 @@ const UserMenu: React.FC<Props> = ({ children }) => {
           <Menu.Item>
             {({ active }) => (
               <Link
-                href='#'
+                href={'/' + me.username}
                 className={`${
                   active && 'bg-main-gray'
                 } leading-[1.5] group flex flex-wrap w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
               >
-                <div className='font-bold text-primary w-full'>dngtnv</div>
+                <div className='font-bold text-primary w-full'>
+                  {me.username}
+                </div>
                 <div className='text-[0.9em] text-gray-primary w-full'>
-                  @dngtnv
+                  @{me.username}
                 </div>
               </Link>
             )}

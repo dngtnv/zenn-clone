@@ -1,20 +1,24 @@
+import { NextPageContext } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { ReactElement } from 'react'
+import { ReactElement, useContext } from 'react'
 import SvgRss from '../components/Icons/rss-icon'
 import Layout from '../components/Layout'
+import AuthContext from '../context/AuthProvider'
 import { NextPageWithLayout } from './_app'
 
-const UserProfile: NextPageWithLayout = () => {
-  const router = useRouter()
-  const username = router.query.username
+interface Props {
+  username: string
+  tab?: string
+}
 
+const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
+  const { me } = useContext(AuthContext)
   return (
     <>
       <Head>
-        <title>{username} | Zenn</title>
+        <title>{`${username} | Zenn`}</title>
       </Head>
       <header>
         <div className='max-w-[960px] mx-auto py-0 px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10'>
@@ -25,13 +29,13 @@ const UserProfile: NextPageWithLayout = () => {
                 src='/ingodwhotrust.jpg'
                 width={120}
                 height={120}
-                alt={`${username}`}
+                alt={username}
               />
             </div>
             <div className='mt-[0.8rem] tablet:mt-0 pl-0 tablet:pl-7 flex-1 text-[0.95rem] leading-[1.6]'>
               <div className='flex items-center justify-center'>
                 <h1 className='text-[1.4rem] font-bold mt-[0.3rem] leading-[1.3] flex-1 break-all'>
-                  {username}
+                  {me.username}
                 </h1>
                 <div className='min-w-[100px] ml-[10px] text-right'>
                   <Link
@@ -44,7 +48,7 @@ const UserProfile: NextPageWithLayout = () => {
               </div>
               <div className='mt-[0.7rem]'>
                 <p className='text-[0.95rem] text-primary leading-[1.6] flex-1'>
-                  This is bio
+                  {me.bio}
                 </p>
                 <div className='mt-[0.3rem] flex items-center flex-wrap'>
                   <Link
@@ -62,9 +66,9 @@ const UserProfile: NextPageWithLayout = () => {
       <div className='mx-auto py-0 px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10  max-w-[960px]'>
         <div className='flex justify-start items-center'>
           <Link
-            href={`/${username}`}
+            href={`/${me.username}`}
             className={`${
-              router.pathname == '/[username]'
+              !tab
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
             } 'text-base font-semibold mr-6 py-[0.3rem]`}
@@ -72,9 +76,9 @@ const UserProfile: NextPageWithLayout = () => {
             Articles
           </Link>
           <Link
-            href={`/${username}?tab=scraps`}
+            href={`/${me.username}?tab=scraps`}
             className={`${
-              router.pathname == '/[username]?tab=scraps'
+              tab == 'scraps'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
             } 'text-base font-semibold mr-6 py-[0.3rem]`}
@@ -82,9 +86,9 @@ const UserProfile: NextPageWithLayout = () => {
             Scraps
           </Link>
           <Link
-            href={`/${username}?tab=comments`}
+            href={`/${me.username}?tab=comments`}
             className={`${
-              router.pathname == '/[username]?tab=comments'
+              tab == 'comments'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
             } 'text-base font-semibold mr-6 py-[0.3rem]`}
@@ -109,8 +113,12 @@ const UserProfile: NextPageWithLayout = () => {
   )
 }
 
-UserProfile.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>
+UserProfile.getLayout = function getLayout(page: ReactElement, data) {
+  return <Layout data={data}>{page}</Layout>
+}
+
+export const getServerSideProps = async ({ query }: NextPageContext) => {
+  return { props: { username: query.username, tab: query.tab || null } }
 }
 
 export default UserProfile

@@ -12,9 +12,7 @@ const NotFound: NextPageWithLayout = () => {
       </Head>
       <div>
         <h1 className='text-primary text-2xl'>This page could not be found</h1>
-        <Link href='/'>
-          <a>Go back</a>
-        </Link>
+        <Link href='/'>Go back</Link>
       </div>
     </>
   )
