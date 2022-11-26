@@ -6,6 +6,8 @@ import { ReactElement, useContext } from 'react'
 import SvgRss from '../components/Icons/rss-icon'
 import Layout from '../components/Layout'
 import AuthContext from '../context/AuthProvider'
+import { IUser } from '../types'
+import axios from '../utils/axios'
 import { NextPageWithLayout } from './_app'
 
 interface Props {
@@ -118,7 +120,20 @@ UserProfile.getLayout = function getLayout(page: ReactElement, data) {
 }
 
 export const getServerSideProps = async ({ query }: NextPageContext) => {
-  return { props: { username: query.username, tab: query.tab || null } }
+  try {
+    const response: any = await axios.get(
+      `http://localhost:5000/api/${query.username}`
+    )
+  } catch (err: any) {
+    if (err.response) {
+      return {
+        notFound: true,
+      }
+    }
+  }
+  return {
+    props: { username: query.username, tab: query.tab || null },
+  }
 }
 
 export default UserProfile
