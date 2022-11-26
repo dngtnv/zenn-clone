@@ -15,8 +15,15 @@ export const findArticle = async (
   return ArticleModel.findOne(query, {}, options)
 }
 
-export const getArticles = async () => {
-  return ArticleModel.find({})
+export const findArticlebyUser = async (
+  query: FilterQuery<ArticleDocument>,
+  options: QueryOptions = { lean: true }
+) => {
+  return ArticleModel.find(query, {}, options)
+}
+
+export const getArticles = async (options: QueryOptions = { lean: true }) => {
+  return ArticleModel.find({}, options)
 }
 
 export const findAndUpdateArticle = async (

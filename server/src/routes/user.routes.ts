@@ -1,5 +1,6 @@
 import express from 'express'
 import {
+  checkUserExist,
   getCurrentUser,
   updateUserHandler,
 } from '../controller/user.controller'
@@ -16,5 +17,7 @@ router.put(
   [requireUser, validateResource(updateUserSchema)],
   updateUserHandler
 )
+
+router.get('/api/:username', checkUserExist)
 
 export default router

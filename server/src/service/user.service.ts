@@ -5,8 +5,11 @@ import config from '../config/default'
 import logger from '../library/logger'
 import UserModel, { UserDocument } from '../models/user.model'
 
-export const findUser = (query: FilterQuery<UserDocument>) => {
-  return UserModel.findOne(query).lean()
+export const findUser = (
+  query: FilterQuery<UserDocument>,
+  options: QueryOptions = { lean: true }
+) => {
+  return UserModel.findOne(query, {}, options)
 }
 
 interface GoogleTokensResult {

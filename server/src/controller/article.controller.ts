@@ -11,8 +11,10 @@ import {
   deleteArticle,
   findAndUpdateArticle,
   findArticle,
+  findArticlebyUser,
   getArticles,
 } from '../service/article.service'
+import { findUser } from '../service/user.service'
 
 export const createArticleHandler = async (
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -66,7 +68,7 @@ export const getArticleHandler = async (
 ) => {
   const articleId = req.params.articleId
   try {
-    const article = await findArticle({ articleId })
+    const article = await findArticle({ articleId }, { populate: 'user' })
     if (!article) {
       return res
         .status(404)
@@ -79,14 +81,25 @@ export const getArticleHandler = async (
 }
 
 export const getArticlesHandler = async (req: Request, res: Response) => {
-  await getArticles()
-    .then((articles) => {
+  try {
+    const username = req.query.username
+    if (!username) {
+      const articles = await getArticles({ populate: 'user' })
       if (!articles) {
         return res.status(403).json({ message: 'No articles found' })
       }
       return res.status(200).json({ articles })
-    })
-    .catch((err) => logger.error(err))
+    }
+
+    const user = await findUser({ username: username })
+    if (!user) {
+      return res.status(404).json({ message: 'User does not exist' })
+    }
+    const articles = await findArticlebyUser({ username }, { populate: 'user' })
+    return res.json({ articles })
+  } catch (err) {
+    logger.error(err)
+  }
 }
 
 export const deleteArticleHandler = async (

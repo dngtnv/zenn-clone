@@ -78,9 +78,7 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
       {
         email: googleUser.email,
         name: googleUser.name,
-        username: '',
         avatarUrl: googleUser.picture,
-        bio: '',
       },
       {
         upsert: true,
