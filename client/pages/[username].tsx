@@ -2,21 +2,19 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ReactElement, useContext } from 'react'
+import { ReactElement } from 'react'
 import SvgRss from '../components/Icons/rss-icon'
 import Layout from '../components/Layout'
-import AuthContext from '../context/AuthProvider'
-import { IUser } from '../types'
 import axios from '../utils/axios'
 import { NextPageWithLayout } from './_app'
 
 interface Props {
   username: string
+  bio: string
   tab?: string
 }
 
-const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
-  const { me } = useContext(AuthContext)
+const UserProfile: NextPageWithLayout<Props> = ({ username, bio, tab }) => {
   return (
     <>
       <Head>
@@ -37,7 +35,7 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
             <div className='mt-[0.8rem] tablet:mt-0 pl-0 tablet:pl-7 flex-1 text-[0.95rem] leading-[1.6]'>
               <div className='flex items-center justify-center'>
                 <h1 className='text-[1.4rem] font-bold mt-[0.3rem] leading-[1.3] flex-1 break-all'>
-                  {me.username}
+                  {username}
                 </h1>
                 <div className='min-w-[100px] ml-[10px] text-right'>
                   <Link
@@ -50,7 +48,7 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
               </div>
               <div className='mt-[0.7rem]'>
                 <p className='text-[0.95rem] text-primary leading-[1.6] flex-1'>
-                  {me.bio}
+                  {bio}
                 </p>
                 <div className='mt-[0.3rem] flex items-center flex-wrap'>
                   <Link
@@ -68,7 +66,7 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
       <div className='mx-auto py-0 px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10  max-w-[960px]'>
         <div className='flex justify-start items-center'>
           <Link
-            href={`/${me.username}`}
+            href={`/${username}`}
             className={`${
               !tab
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
@@ -78,7 +76,7 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
             Articles
           </Link>
           <Link
-            href={`/${me.username}?tab=scraps`}
+            href={`/${username}?tab=scraps`}
             className={`${
               tab == 'scraps'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
@@ -88,7 +86,7 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
             Scraps
           </Link>
           <Link
-            href={`/${me.username}?tab=comments`}
+            href={`/${username}?tab=comments`}
             className={`${
               tab == 'comments'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
@@ -103,10 +101,16 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, tab }) => {
         <div className='mx-auto max-w-[960px] py-0 px-10'>
           <div className='text-center mt-4'>
             <p className='text-[1.4rem] text-gray-primary leading-[1.6] font-bold'>
-              No Articles yet
+              No articles yet
             </p>
             <div className='mt-6 flex justify-center'>
-              <Image src='/user-content.png' width={300} height={243} alt='' />
+              <Image
+                src='/user-content.png'
+                width={300}
+                height={243}
+                priority={true}
+                alt=''
+              />
             </div>
           </div>
         </div>
@@ -124,15 +128,17 @@ export const getServerSideProps = async ({ query }: NextPageContext) => {
     const response: any = await axios.get(
       `http://localhost:5000/api/${query.username}`
     )
-  } catch (err: any) {
-    if (err.response) {
-      return {
-        notFound: true,
-      }
+    return {
+      props: {
+        username: response.data.user.username,
+        bio: response.data.user.bio,
+        tab: query.tab || null,
+      },
     }
-  }
-  return {
-    props: { username: query.username, tab: query.tab || null },
+  } catch (err: any) {
+    return {
+      notFound: true,
+    }
   }
 }
 
