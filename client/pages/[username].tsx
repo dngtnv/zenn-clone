@@ -2,23 +2,26 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import SvgRss from '../components/Icons/rss-icon'
 import Layout from '../components/Layout'
+import { IUser } from '../types'
 import axios from '../utils/axios'
 import { NextPageWithLayout } from './_app'
 
 interface Props {
-  username: string
-  bio: string
-  tab?: string
+  user: IUser
+  initialActiveItemType?: string
 }
 
-const UserProfile: NextPageWithLayout<Props> = ({ username, bio, tab }) => {
+const UserProfile: NextPageWithLayout<Props> = ({
+  user,
+  initialActiveItemType,
+}) => {
   return (
     <>
       <Head>
-        <title>{`${username} | Zenn`}</title>
+        <title>{`${user.username}'s ${initialActiveItemType} list | Zenn`}</title>
       </Head>
       <header>
         <div className='max-w-[960px] mx-auto py-0 px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10'>
@@ -29,13 +32,13 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, bio, tab }) => {
                 src='/ingodwhotrust.jpg'
                 width={120}
                 height={120}
-                alt={username}
+                alt={user.username}
               />
             </div>
             <div className='mt-[0.8rem] tablet:mt-0 pl-0 tablet:pl-7 flex-1 text-[0.95rem] leading-[1.6]'>
               <div className='flex items-center justify-center'>
                 <h1 className='text-[1.4rem] font-bold mt-[0.3rem] leading-[1.3] flex-1 break-all'>
-                  {username}
+                  {user.username}
                 </h1>
                 <div className='min-w-[100px] ml-[10px] text-right'>
                   <Link
@@ -48,7 +51,7 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, bio, tab }) => {
               </div>
               <div className='mt-[0.7rem]'>
                 <p className='text-[0.95rem] text-primary leading-[1.6] flex-1'>
-                  {bio}
+                  {user.bio}
                 </p>
                 <div className='mt-[0.3rem] flex items-center flex-wrap'>
                   <Link
@@ -66,32 +69,29 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, bio, tab }) => {
       <div className='mx-auto py-0 px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10  max-w-[960px]'>
         <div className='flex justify-start items-center'>
           <Link
-            href={`/${username}`}
-            className={`${
-              !tab
+            href={`/${user.username}`}
+            className={`${initialActiveItemType == 'articles'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-            } 'text-base font-semibold mr-6 py-[0.3rem]`}
+              } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Articles
           </Link>
           <Link
-            href={`/${username}?tab=scraps`}
-            className={`${
-              tab == 'scraps'
+            href={`/${user.username}?tab=scraps`}
+            className={`${initialActiveItemType == 'scraps'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-            } 'text-base font-semibold mr-6 py-[0.3rem]`}
+              } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Scraps
           </Link>
           <Link
-            href={`/${username}?tab=comments`}
-            className={`${
-              tab == 'comments'
+            href={`/${user.username}?tab=comments`}
+            className={`${initialActiveItemType == 'comments'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-            } 'text-base font-semibold mr-6 py-[0.3rem]`}
+              } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Comments
           </Link>
@@ -101,7 +101,7 @@ const UserProfile: NextPageWithLayout<Props> = ({ username, bio, tab }) => {
         <div className='mx-auto max-w-[960px] py-0 px-10'>
           <div className='text-center mt-4'>
             <p className='text-[1.4rem] text-gray-primary leading-[1.6] font-bold'>
-              No articles yet
+              {`No ${initialActiveItemType} yet`}
             </p>
             <div className='mt-6 flex justify-center'>
               <Image
@@ -128,11 +128,14 @@ export const getServerSideProps = async ({ query }: NextPageContext) => {
     const response: any = await axios.get(
       `http://localhost:5000/api/${query.username}`
     )
+    let tabType: string | string[] = 'articles'
+    if (query.tab) {
+      tabType = query.tab
+    }
     return {
       props: {
-        username: response.data.user.username,
-        bio: response.data.user.bio,
-        tab: query.tab || null,
+        user: response.data.user,
+        initialActiveItemType: tabType || null,
       },
     }
   } catch (err: any) {

@@ -14,11 +14,15 @@ import { privateFetcher } from '../../utils/fetcher'
 import { IUser } from '../../types/index'
 import AuthContext from '../../context/AuthProvider'
 
-const Header: React.FC<{ fallbackData?: IUser }> = ({ fallbackData }) => {
+type headerProps = {
+  currentUser: IUser
+}
+
+const Header: React.FC<{ fallbackData?: headerProps }> = ({ fallbackData }) => {
   const [isOpen, setIsOpen] = useState(false)
   const { setMe } = useContext(AuthContext)
 
-  const { data } = useSWR<IUser | null>(
+  const { data } = useSWR<headerProps | null>(
     `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
     privateFetcher,
     {
@@ -29,10 +33,11 @@ const Header: React.FC<{ fallbackData?: IUser }> = ({ fallbackData }) => {
 
   useEffect(() => {
     if (data) {
+      console.log(data)
       setMe({
-        username: data.username,
-        bio: data.bio,
-        avatarUrl: data.avatarUrl,
+        username: data.currentUser.username,
+        bio: data.currentUser.bio,
+        avatarUrl: data.currentUser.avatarUrl,
       })
     }
   }, [data])
@@ -69,7 +74,9 @@ const Header: React.FC<{ fallbackData?: IUser }> = ({ fallbackData }) => {
                   <UserMenu>
                     <Image
                       className='object-cover border border-gray-bd-lighter rounded-[50%]'
-                      src={data ? data.avatarUrl : '/ingodwhotrust.jpg'}
+                      src={
+                        data ? data.currentUser.avatarUrl : '/ingodwhotrust.jpg'
+                      }
                       width={40}
                       height={40}
                       alt=''
