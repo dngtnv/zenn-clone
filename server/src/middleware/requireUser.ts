@@ -7,7 +7,7 @@ export const requireUser = (
 ) => {
   const user = res.locals.user
 
-  if (!req.cookies && !req.headers.authorization) {
+  if (!req.headers.cookie && !req.headers.authorization) {
     return res.status(401).json({ message: 'Unauthorized' })
   }
 

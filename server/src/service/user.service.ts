@@ -7,7 +7,10 @@ import UserModel, { UserDocument } from '../models/user.model'
 
 export const findUser = (
   query: FilterQuery<UserDocument>,
-  options: QueryOptions = { lean: true }
+  options: QueryOptions = {
+    lean: true,
+    select: '-__v -createdAt -updatedAt',
+  }
 ) => {
   return UserModel.findOne(query, {}, options)
 }
