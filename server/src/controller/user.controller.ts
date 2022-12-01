@@ -32,7 +32,7 @@ export const updateUserHandler = async (
   const user = await findUser({ _id: userId })
 
   if (!user) {
-    return res.status(404).json({ message: 'User does not exist' })
+    return res.status(403).json({ message: 'User does not exist' })
   }
   if (String(user._id) !== userId) {
     return res.status(404).json({ message: 'Not Found' })

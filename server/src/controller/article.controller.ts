@@ -68,7 +68,7 @@ export const getArticleHandler = async (
 ) => {
   const articleId = req.params.articleId
   try {
-    const article = await findArticle({ articleId }, { populate: 'user' })
+    const article = await findArticle({ articleId })
     if (!article) {
       return res
         .status(404)
@@ -84,7 +84,7 @@ export const getArticlesHandler = async (req: Request, res: Response) => {
   try {
     const username = req.query.username
     if (!username) {
-      const articles = await getArticles({ populate: 'user' })
+      const articles = await getArticles({})
       if (!articles) {
         return res.status(403).json({ message: 'No articles found' })
       }
@@ -93,9 +93,9 @@ export const getArticlesHandler = async (req: Request, res: Response) => {
 
     const user = await findUser({ username: username })
     if (!user) {
-      return res.status(404).json({ message: 'User does not exist' })
+      return res.status(403).json({ message: 'User does not exist' })
     }
-    const articles = await findArticlebyUser({ username }, { populate: 'user' })
+    const articles = await findArticlebyUser({ user: user._id })
     return res.json({ articles })
   } catch (err) {
     logger.error(err)

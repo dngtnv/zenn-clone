@@ -18,6 +18,6 @@ router.put(
   updateUserHandler
 )
 
-router.get('/api/:username', checkUserExist)
+router.get('/api/users/:username', checkUserExist)
 
 export default router
