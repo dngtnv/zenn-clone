@@ -15,3 +15,12 @@ export interface IUser {
   bio?: string
   avatarUrl: string
 }
+
+export interface IArticle {
+  articleId: string
+  articleType: string
+  emoji: string
+  title: string
+  user: IUser
+  path: string
+}
