@@ -50,7 +50,7 @@ const Header: React.FC<{ fallbackData?: headerProps }> = ({ fallbackData }) => {
   }
 
   return (
-    <header>
+    <header className='bg-white text-primary'>
       <div className='mx-auto px-[14px] mobile:px-5 tablet:px-[25px] laptop:px-10 max-w-[1200px]'>
         <div className='flex justify-between items-center'>
           <Link href='/' className='flex items-center h-[62px]'>
@@ -61,6 +61,7 @@ const Header: React.FC<{ fallbackData?: headerProps }> = ({ fallbackData }) => {
               <div className='flex items-center'>
                 <Link
                   href='/search'
+                  aria-label='go to search page'
                   className='text-secondary hover:text-primary transition duration-[250] ease-out'
                 >
                   <SvgSearch size={23} />

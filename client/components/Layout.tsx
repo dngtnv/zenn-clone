@@ -6,12 +6,12 @@ import Header from './Header'
 const Layout = ({ children }: any) => {
   return (
     <AuthProvider>
-      <div>
+      <>
         <Header />
         {/* <Navbar /> */}
         {children}
         <Footer />
-      </div>
+      </>
     </AuthProvider>
   )
 }

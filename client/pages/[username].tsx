@@ -2,14 +2,16 @@ import { NextPageContext } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ReactElement, useState } from 'react'
+import { ReactElement } from 'react'
+import SvgFavorite from '../components/Icons/favorite-icon'
 import SvgRss from '../components/Icons/rss-icon'
 import Layout from '../components/Layout'
-import { IUser } from '../types'
+import { useArticles } from '../hooks/useArticles'
+import { IArticle, IUser } from '../types'
 import axios from '../utils/axios'
 import { NextPageWithLayout } from './_app'
 
-interface Props {
+type Props = {
   user: IUser
   initialActiveItemType?: string
 }
@@ -18,6 +20,8 @@ const UserProfile: NextPageWithLayout<Props> = ({
   user,
   initialActiveItemType,
 }) => {
+  const { articles, isLoading } = useArticles(user.username)
+
   return (
     <>
       <Head>
@@ -29,10 +33,11 @@ const UserProfile: NextPageWithLayout<Props> = ({
             <div className='w-[85px] tablet:w-[120px]'>
               <Image
                 className='rounded-[50%] block flex-shrink-0 text-[11px]'
-                src='/ingodwhotrust.jpg'
+                src={user.avatarUrl || '/ingodwhotrust.jpg'}
                 width={120}
                 height={120}
                 alt={user.username}
+                priority={true}
               />
             </div>
             <div className='mt-[0.8rem] tablet:mt-0 pl-0 tablet:pl-7 flex-1 text-[0.95rem] leading-[1.6]'>
@@ -70,28 +75,31 @@ const UserProfile: NextPageWithLayout<Props> = ({
         <div className='flex justify-start items-center'>
           <Link
             href={`/${user.username}`}
-            className={`${initialActiveItemType == 'articles'
+            className={`${
+              initialActiveItemType == 'articles'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-              } 'text-base font-semibold mr-6 py-[0.3rem]`}
+            } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Articles
           </Link>
           <Link
             href={`/${user.username}?tab=scraps`}
-            className={`${initialActiveItemType == 'scraps'
+            className={`${
+              initialActiveItemType == 'scraps'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-              } 'text-base font-semibold mr-6 py-[0.3rem]`}
+            } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Scraps
           </Link>
           <Link
             href={`/${user.username}?tab=comments`}
-            className={`${initialActiveItemType == 'comments'
+            className={`${
+              initialActiveItemType == 'comments'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
                 : 'text-secondary border-b-[2.5px] border-b-transparent'
-              } 'text-base font-semibold mr-6 py-[0.3rem]`}
+            } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Comments
           </Link>
@@ -99,20 +107,61 @@ const UserProfile: NextPageWithLayout<Props> = ({
       </div>
       <div className='px-0 pt-16 pb-[4.5rem] min-h-screen bg-main-gray'>
         <div className='mx-auto max-w-[960px] py-0 px-10'>
-          <div className='text-center mt-4'>
-            <p className='text-[1.4rem] text-gray-primary leading-[1.6] font-bold'>
-              {`No ${initialActiveItemType} yet`}
-            </p>
-            <div className='mt-6 flex justify-center'>
-              <Image
-                src='/user-content.png'
-                width={300}
-                height={243}
-                priority={true}
-                alt=''
-              />
+          {isLoading ? null : articles?.length !== 0 ? (
+            <div>
+              <div className='grid grid-cols-2 gap-y-[2em] gap-x-[1.7em] laptop:grid-cols-3 laptop:gap-y-[2.2em] laptop:gap-x-[1.2em] desktop:gap-x-[1.8em]'>
+                {articles?.map((article: IArticle) => (
+                  <article
+                    key={article.articleId}
+                    className='relative flex flex-col bg-white rounded-xl shadow-[0px_4px_8px_-2px_rgba(0,10,60,0.1)] overflow-hidden transition-shadow duration-[0.2s]'
+                  >
+                    <Link
+                      href='#'
+                      className='absolute top-3 left-3 text-[10px] font-semibold uppercase bg-blue-lighter text-white text-center py-[3px] px-[6px] leading-[1.3] rounded-[10px]'
+                    >
+                      {article.articleType}
+                    </Link>
+                    <Link href='#' className='flex flex-1 flex-col'>
+                      <div className='flex justify-center text-[46px] py-[25px] leading-[1.5] bg-[#cfe5ff]'>
+                        <span className='inline-flex'>
+                          <span className='inline-flex h-[1em] w-[1em] bg-contain bg-[url("https://twemoji.maxcdn.com/v/latest/svg/1f391.svg")]'></span>
+                        </span>
+                      </div>
+                      <div className='pt-[0.8em] flex-1'>
+                        <h3 className='font-bold text-base px-[0.9rem] line-clamp-3 text-ellipsis leading-[1.5] max-h-[4.55em]'>
+                          {article.title}
+                        </h3>
+                      </div>
+                      <div className='text-[0.74rem] pt-[0.65rem] px-[0.9rem] pb-4 leading-[1.2]'>
+                        <div className='flex items-center text-gray-primary'>
+                          <time>3 hours ago</time>
+                          <span className='inline-flex items-center ml-[6px]'>
+                            <SvgFavorite className='mr-[3px] w-[13px] h-[13px]' />
+                            3
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </article>
+                ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className='text-center mt-4'>
+              <p className='text-[1.4rem] text-gray-primary leading-[1.6] font-bold'>
+                {`No ${initialActiveItemType} yet`}
+              </p>
+              <div className='mt-6 flex justify-center'>
+                <Image
+                  src='/user-content.png'
+                  width={300}
+                  height={243}
+                  priority={true}
+                  alt=''
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </>
@@ -126,7 +175,7 @@ UserProfile.getLayout = function getLayout(page: ReactElement, data) {
 export const getServerSideProps = async ({ query }: NextPageContext) => {
   try {
     const response: any = await axios.get(
-      `http://localhost:5000/api/${query.username}`
+      `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/users/${query.username}`
     )
     let tabType: string | string[] = 'articles'
     if (query.tab) {

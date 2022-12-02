@@ -37,7 +37,7 @@ module.exports = {
                 } */
       },
       fontFamily: {
-        inter: ['Inter', 'sans-serif'],
+        sans: ['var(--font-inter)', 'sans-serif'],
       },
       fontSize: {
         xs: '0.781rem', // 12.5px
