@@ -14,6 +14,7 @@ export const publicFetcher = async <T>(url: string): Promise<T | null> => {
     const { data } = await axios.get<T>(url)
     return data
   } catch (error) {
-    return null
+    throw error
+    // return null
   }
 }
