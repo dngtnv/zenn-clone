@@ -3,24 +3,40 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement } from 'react'
+import useSWR from 'swr'
 import SvgFavorite from '../components/Icons/favorite-icon'
 import SvgRss from '../components/Icons/rss-icon'
 import Layout from '../components/Layout'
-import { useArticles } from '../hooks/useArticles'
+import Tooltip from '../components/Tooltip'
 import { IArticle, IUser } from '../types'
 import axios from '../utils/axios'
+import { publicFetcher } from '../utils/fetcher'
 import { NextPageWithLayout } from './_app'
 
 type Props = {
   user: IUser
   initialActiveItemType?: string
 }
+type articlesProps = {
+  articles: IArticle[]
+}
 
 const UserProfile: NextPageWithLayout<Props> = ({
   user,
   initialActiveItemType,
 }) => {
-  const { articles, isLoading } = useArticles(user.username)
+  // const { articles, isLoading } = useArticles(user.username)
+  const { data, error } = useSWR<articlesProps | null>(
+    initialActiveItemType === 'articles'
+      ? `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/articles?username=${user.username}`
+      : initialActiveItemType === 'scraps'
+      ? `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/scraps?username=${user.username}`
+      : `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/users/${user.username}/comments`,
+    publicFetcher,
+    {
+      revalidateOnFocus: false,
+    }
+  )
 
   return (
     <>
@@ -63,7 +79,9 @@ const UserProfile: NextPageWithLayout<Props> = ({
                     className='text-gray-primary hover:text-primary'
                     href='#'
                   >
-                    <SvgRss />
+                    <Tooltip label='RSS'>
+                      <SvgRss />
+                    </Tooltip>
                   </Link>
                 </div>
               </div>
@@ -75,6 +93,8 @@ const UserProfile: NextPageWithLayout<Props> = ({
         <div className='flex justify-start items-center'>
           <Link
             href={`/${user.username}`}
+            scroll={false}
+            replace
             className={`${
               initialActiveItemType == 'articles'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
@@ -85,6 +105,8 @@ const UserProfile: NextPageWithLayout<Props> = ({
           </Link>
           <Link
             href={`/${user.username}?tab=scraps`}
+            scroll={false}
+            replace
             className={`${
               initialActiveItemType == 'scraps'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
@@ -95,6 +117,8 @@ const UserProfile: NextPageWithLayout<Props> = ({
           </Link>
           <Link
             href={`/${user.username}?tab=comments`}
+            replace
+            scroll={false}
             className={`${
               initialActiveItemType == 'comments'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
@@ -107,10 +131,11 @@ const UserProfile: NextPageWithLayout<Props> = ({
       </div>
       <div className='px-0 pt-16 pb-[4.5rem] min-h-screen bg-main-gray'>
         <div className='mx-auto max-w-[960px] py-0 px-10'>
-          {isLoading ? null : articles?.length !== 0 ? (
+          {!error && !data && null}
+          {data?.articles?.length !== 0 && data ? (
             <div>
               <div className='grid grid-cols-2 gap-y-[2em] gap-x-[1.7em] laptop:grid-cols-3 laptop:gap-y-[2.2em] laptop:gap-x-[1.2em] desktop:gap-x-[1.8em]'>
-                {articles?.map((article: IArticle) => (
+                {data?.articles?.map((article: IArticle) => (
                   <article
                     key={article.articleId}
                     className='relative flex flex-col bg-white rounded-xl shadow-[0px_4px_8px_-2px_rgba(0,10,60,0.1)] overflow-hidden transition-shadow duration-[0.2s]'
@@ -146,7 +171,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
                 ))}
               </div>
             </div>
-          ) : (
+          ) : !data || data?.articles.length == 0 ? (
             <div className='text-center mt-4'>
               <p className='text-[1.4rem] text-gray-primary leading-[1.6] font-bold'>
                 {`No ${initialActiveItemType} yet`}
@@ -161,7 +186,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
                 />
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>
