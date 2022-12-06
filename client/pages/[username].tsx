@@ -79,7 +79,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
                     className='text-gray-primary hover:text-primary'
                     href='#'
                   >
-                    <Tooltip label='RSS'>
+                    <Tooltip tagName='span' label='RSS'>
                       <SvgRss />
                     </Tooltip>
                   </Link>

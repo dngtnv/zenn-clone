@@ -26,7 +26,7 @@ const Home: NextPageWithLayout = () => {
               <h1 className='text-2xl leading-[1.3] font-bold text-primary mr-[6px]'>
                 Tech
               </h1>
-              <Tooltip label='Knowledge of technology'>
+              <Tooltip tagName='button' label='Knowledge of technology'>
                 <span className='flex justify-center w-[17px] h-[17px] leading-[17px] text-white text-[10px] rounded-[50%] bg-gray-lighter group-hover:bg-gray-primary'>
                   ?
                 </span>
@@ -52,7 +52,10 @@ const Home: NextPageWithLayout = () => {
               <h1 className='text-2xl leading-[1.3] font-bold text-primary mr-[6px]'>
                 Ideas
               </h1>
-              <Tooltip label='Career, team, work theory, poem, etc.'>
+              <Tooltip
+                tagName='button'
+                label='Career, team, work theory, poem, etc.'
+              >
                 <span className='flex justify-center w-[17px] h-[17px] leading-[17px] text-white text-[10px] rounded-[50%] bg-gray-lighter group-hover:bg-gray-primary'>
                   ?
                 </span>
