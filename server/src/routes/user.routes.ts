@@ -21,7 +21,7 @@ router.put(
 router.get('/api/users/:username', checkUserExist)
 
 router.get('/api/users/:username/comments', (req, res) => {
-  res.sendStatus(204)
+  res.status(200).send({ comments: [] })
 })
 
 export default router

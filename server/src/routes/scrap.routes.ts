@@ -3,7 +3,7 @@ import express from 'express'
 const router = express.Router()
 
 router.get('/api/scraps', (req, res) => {
-  res.sendStatus(204)
+  res.status(200).json({ scraps: [] })
 })
 
 export default router
