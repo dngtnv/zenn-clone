@@ -6,6 +6,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        fadeinup: {
+          '0%': { opacity: 0, transform: 'translateY(20px)' },
+          '70%': { transform: 'translateY(0)' },
+          '100%': { opacity: 1 },
+        },
+      },
+      animation: {
+        fadeinup: 'fadeinup 0.3s ease-in',
+      },
       colors: {
         primary: '#000000d1',
         secondary: '#6E7B85',
