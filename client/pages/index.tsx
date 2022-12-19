@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { ReactElement } from 'react'
+import { ReactElement, useContext } from 'react'
 import Layout from '../components/Layout'
 import Navbar from '../components/Navbar'
 import { NextPageWithLayout } from './_app'
@@ -8,8 +8,11 @@ import Tooltip from '../components/Tooltip'
 import ArticleList from '../components/Articles/ArticleList'
 import LoginCta from '../components/Login/LoginCta'
 import Link from 'next/link'
+import AuthContext from '../context/AuthProvider'
 
 const Home: NextPageWithLayout = () => {
+  const { me } = useContext(AuthContext)
+
   return (
     <>
       <Head>
@@ -102,7 +105,7 @@ const Home: NextPageWithLayout = () => {
             </div>
           </div>
         </section>
-        <LoginCta />
+        {Object.keys(me).length === 0 ? <LoginCta /> : null}
       </main>
     </>
   )
