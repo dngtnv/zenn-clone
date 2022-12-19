@@ -31,15 +31,15 @@ const Header: React.FC<{ fallbackData?: headerProps }> = ({ fallbackData }) => {
     }
   )
 
-  // useEffect(() => {
-  if (data) {
-    setMe({
-      username: data.currentUser.username,
-      bio: data.currentUser.bio,
-      avatarUrl: data.currentUser.avatarUrl,
-    })
-  }
-  // }, [data])
+  useEffect(() => {
+    if (data) {
+      setMe({
+        username: data.currentUser.username,
+        bio: data.currentUser.bio,
+        avatarUrl: data.currentUser.avatarUrl,
+      })
+    }
+  }, [data])
 
   function closeModal() {
     setIsOpen(false)
