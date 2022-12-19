@@ -66,7 +66,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
                   {user.username}
                 </h1>
                 <div className='min-w-[100px] ml-[10px] text-right'>
-                  {Object.keys(me).length === 0 ||
+                  {Object.keys(me).length !== 0 &&
                   me.username == user.username ? (
                     <Link
                       className='text-[0.85rem] py-[0.45em] px-[0.75rem] text-primary border border-gray-bd-lighter rounded-[0.45em] shadow-[0_2px_3px_-2px_#21253840] hover:bg-[#f5fbff] hover:border hover:border-[#d6e3ed] focus:border focus:border-blue-lighter focus:outline-0 focus:shadow-[0_0_0_2.5px_#bfdcff]'
@@ -74,11 +74,13 @@ const UserProfile: NextPageWithLayout<Props> = ({
                     >
                       Edit profile
                     </Link>
-                  ) : (
+                  ) : null}
+                  {Object.keys(me).length === 0 ||
+                  me.username !== user.username ? (
                     <button className='inline-flex items-center justify-center whitespace-nowrap w-[100px] h-9 text-[14.5px] rounded-[99rem] text-secondary border border-secondary'>
                       Follow
                     </button>
-                  )}
+                  ) : null}
                 </div>
               </div>
               <div className='mt-[0.7rem]'>
