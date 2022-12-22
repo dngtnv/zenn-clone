@@ -1,9 +1,10 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, useState } from 'react'
 import { NextPage } from 'next'
 import { AuthProvider } from '../context/AuthProvider'
 import { Inter } from '@next/font/google'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -19,6 +20,7 @@ type AppPropsWithLayout = AppProps & {
 }
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+  const [queryClient] = useState(() => new QueryClient())
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page)
   /* return getLayout(
@@ -28,11 +30,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     </AuthProvider>
   ) */
   return (
-    <main className={`${inter.variable} font-sans`}>
-      <AuthProvider>
-        {getLayout(<Component {...pageProps} />, pageProps.data)}
-      </AuthProvider>
-    </main>
+    <QueryClientProvider client={queryClient}>
+      <main className={`${inter.variable} font-sans`}>
+        <AuthProvider>
+          {getLayout(<Component {...pageProps} />, pageProps.data)}
+        </AuthProvider>
+      </main>
+    </QueryClientProvider>
   )
 }
 

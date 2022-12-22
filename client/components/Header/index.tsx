@@ -9,10 +9,10 @@ import SvgBell from '../Icons/bell-icon'
 import SvgSearch from '../Icons/search-icon'
 import SvgZenn from '../Icons/zenn-logo'
 import LoginModal from '../Login/LoginModal'
-import useSWR from 'swr'
 import { privateFetcher } from '../../utils/fetcher'
 import { IUser } from '../../types/index'
 import AuthContext from '../../context/AuthProvider'
+import { useQuery } from '@tanstack/react-query'
 
 type headerProps = {
   currentUser: IUser
@@ -22,14 +22,13 @@ const Header: React.FC<{ fallbackData?: headerProps }> = ({ fallbackData }) => {
   const [isOpen, setIsOpen] = useState(false)
   const { setMe } = useContext(AuthContext)
 
-  const { data } = useSWR<headerProps | null>(
-    `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`,
-    privateFetcher,
-    {
-      fallbackData,
-      revalidateOnFocus: false,
-    }
-  )
+  const { data } = useQuery<headerProps | null>({
+    queryKey: ['me'],
+    queryFn: () =>
+      privateFetcher(`${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/me`),
+    initialData: fallbackData,
+    refetchOnWindowFocus: false,
+  })
 
   useEffect(() => {
     if (data) {

@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement, useContext } from 'react'
-import useSWR from 'swr'
 import SvgRss from '../components/Icons/rss-icon'
 import Layout from '../components/Layout'
 import Tooltip from '../components/Tooltip'
@@ -13,6 +12,7 @@ import axios from '../utils/axios'
 import { publicFetcher } from '../utils/fetcher'
 import { NextPageWithLayout } from './_app'
 import ArticleList from '../components/User/Profile/Articles/ArticleList'
+import { useQuery } from '@tanstack/react-query'
 
 type Props = {
   user: IUser
@@ -29,18 +29,21 @@ const UserProfile: NextPageWithLayout<Props> = ({
   initialActiveItemType,
 }) => {
   const { me } = useContext(AuthContext)
-  // const { articles, isLoading } = useArticles(user.username)
-  const { data, error } = useSWR<profileProps | null>(
+
+  const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/`
+  const endpoint =
     initialActiveItemType === 'articles'
-      ? `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/articles?username=${user.username}`
+      ? `${baseUrl}articles?username=${user.username}`
       : initialActiveItemType === 'scraps'
-      ? `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/scraps?username=${user.username}`
-      : `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/users/${user.username}/comments`,
-    publicFetcher,
-    {
-      revalidateOnFocus: false,
-    }
-  )
+      ? `${baseUrl}scraps?username=${user.username}`
+      : `${baseUrl}users/${user.username}/comments`
+
+  const { data, isLoading } = useQuery<profileProps | null>({
+    queryKey: ['endpoint', endpoint],
+    queryFn: () => publicFetcher(endpoint),
+    refetchOnWindowFocus: false,
+    staleTime: Infinity, // temporary
+  })
 
   return (
     <>
@@ -144,8 +147,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
       </div>
       <div className='px-0 pt-16 pb-[4.5rem] min-h-screen bg-main-gray'>
         <div className='mx-auto max-w-[960px] py-0 px-10'>
-          {!error && !data ? null : data?.articles &&
-            data?.articles?.length !== 0 ? (
+          {isLoading ? null : data?.articles && data?.articles?.length !== 0 ? (
             <div className='animate-fadeinup'>
               <ArticleList articles={data?.articles} />
             </div>
