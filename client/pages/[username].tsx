@@ -114,7 +114,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
             className={`${
               initialActiveItemType == 'articles'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
-                : 'text-secondary border-b-[2.5px] border-b-transparent'
+                : 'text-secondary border-b-[2.5px] border-b-transparent hover:text-primary'
             } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Articles
@@ -126,7 +126,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
             className={`${
               initialActiveItemType == 'scraps'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
-                : 'text-secondary border-b-[2.5px] border-b-transparent'
+                : 'text-secondary border-b-[2.5px] border-b-transparent hover:text-primary'
             } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Scraps
@@ -138,7 +138,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
             className={`${
               initialActiveItemType == 'comments'
                 ? 'text-primary border-b-[2.5px] border-b-primary pointer-events-none'
-                : 'text-secondary border-b-[2.5px] border-b-transparent'
+                : 'text-secondary border-b-[2.5px] border-b-transparent hover:text-primary'
             } 'text-base font-semibold mr-6 py-[0.3rem]`}
           >
             Comments
