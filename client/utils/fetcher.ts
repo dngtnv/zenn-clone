@@ -5,7 +5,7 @@ export const privateFetcher = async <T>(url: string): Promise<T | null> => {
     const { data } = await axiosPrivate.get<T>(url)
     return data
   } catch (error) {
-    return null
+    throw new Error('Network response not ok.', { cause: error })
   }
 }
 
@@ -14,7 +14,6 @@ export const publicFetcher = async <T>(url: string): Promise<T | null> => {
     const { data } = await axios.get<T>(url)
     return data
   } catch (error) {
-    throw error
-    // return null
+    throw new Error('Network response not ok.', { cause: error })
   }
 }

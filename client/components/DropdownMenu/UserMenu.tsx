@@ -1,56 +1,56 @@
-import React, { Fragment, useContext } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import SvgToiletPaper from '../Icons/toiletpaper-icon'
-import SvgDocument from '../Icons/document-icon'
-import SvgBook from '../Icons/book-icon'
-import SvgDeploy from '../Icons/deploy-icon'
-import SvgFavorite from '../Icons/favorite-icon'
-import SvgBookopen from '../Icons/bookopen-icon'
-import SvgYen from '../Icons/jpyen-icon'
-import SvgSetting from '../Icons/setting-icon'
-import SvgLogout from '../Icons/logout-icon'
-import Link from 'next/link'
-import useLogout from '../../hooks/useLogout'
-import AuthContext from '../../context/AuthProvider'
+import React, { Fragment, useContext } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import SvgToiletPaper from "../Icons/toiletpaper-icon";
+import SvgDocument from "../Icons/document-icon";
+import SvgBook from "../Icons/book-icon";
+import SvgDeploy from "../Icons/deploy-icon";
+import SvgFavorite from "../Icons/favorite-icon";
+import SvgBookopen from "../Icons/bookopen-icon";
+import SvgYen from "../Icons/jpyen-icon";
+import SvgSetting from "../Icons/setting-icon";
+import SvgLogout from "../Icons/logout-icon";
+import Link from "next/link";
+import useLogout from "../../hooks/useLogout";
+import AuthContext from "../../context/AuthProvider";
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const UserMenu: React.FC<Props> = ({ children }) => {
-  const logout = useLogout()
-  const { me } = useContext(AuthContext)
+  const logout = useLogout();
+  const { me } = useContext(AuthContext);
 
   const signOut = async () => {
-    await logout()
-    window.location.assign('/')
-  }
+    await logout();
+    window.location.assign("/");
+  };
 
   return (
-    <Menu as='div' className='relative h-10 ml-[20px]'>
+    <Menu as="div" className="relative ml-[20px] h-10">
       <Menu.Button>{children}</Menu.Button>
       <Transition
         as={Fragment}
-        enter='transition ease-out duration-100'
-        enterFrom='transform opacity-0 scale-95'
-        enterTo='transform opacity-100 scale-100'
-        leave='transition ease-in duration-75'
-        leaveFrom='transform opacity-100 scale-100'
-        leaveTo='transform opacity-0 scale-95'
+        enter="transition ease-out duration-100"
+        enterFrom="transform opacity-0 scale-95"
+        enterTo="transform opacity-100 scale-100"
+        leave="transition ease-in duration-75"
+        leaveFrom="transform opacity-100 scale-100"
+        leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className='absolute z-[51] overflow-hidden right-0 w-[236px] text-[13.5px] origin-top-right divide-y divide-gray-100 rounded-[7px] bg-white shadow-[0_3px_12px_-1px_rgba(4,37,63,25%)] focus:outline-none'>
+        <Menu.Items className="absolute right-0 z-[51] w-[236px] origin-top-right divide-y divide-gray-100 overflow-hidden rounded-[7px] bg-white text-[13.5px] shadow-[0_3px_12px_-1px_rgba(4,37,63,25%)] focus:outline-none">
           <Menu.Item>
             {({ active }) => (
               <Link
-                href={'/' + me.username}
+                href={"/" + me.username}
                 className={`${
-                  active && 'bg-main-gray'
-                } leading-[1.5] group flex flex-wrap w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                  active && "bg-main-gray"
+                } group flex w-full flex-wrap items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5]`}
               >
-                <div className='font-bold text-primary w-full'>
+                <div className="w-full font-bold text-primary">
                   {me.username}
                 </div>
-                <div className='text-[0.9em] text-gray-primary w-full'>
+                <div className="w-full text-[0.9em] text-gray-primary">
                   @{me.username}
                 </div>
               </Link>
@@ -60,14 +60,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgToiletPaper
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Scraps management
                 </Link>
@@ -76,14 +76,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgDocument
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Articles management
                 </Link>
@@ -92,14 +92,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgBook
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Books management
                 </Link>
@@ -110,14 +110,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgDeploy
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Deploy from GitHub
                 </Link>
@@ -126,14 +126,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgFavorite
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Liked posts
                 </Link>
@@ -142,14 +142,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgBookopen
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Recent reading book
                 </Link>
@@ -158,14 +158,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgYen
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Earning Dashboard
                 </Link>
@@ -174,14 +174,14 @@ const UserMenu: React.FC<Props> = ({ children }) => {
             <Menu.Item>
               {({ active }) => (
                 <Link
-                  href='#'
+                  href="#"
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] text-primary group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgSetting
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Account settings
                 </Link>
@@ -194,12 +194,12 @@ const UserMenu: React.FC<Props> = ({ children }) => {
                 <button
                   onClick={signOut}
                   className={`${
-                    active && 'bg-main-gray'
-                  } leading-[1.5] group text-primary flex w-full items-center px-[0.9em] py-[0.7em] text-[14px]`}
+                    active && "bg-main-gray"
+                  } group flex w-full items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5] text-primary`}
                 >
                   <SvgLogout
-                    className='text-gray-primary mr-[0.6em] h-5 w-5'
-                    aria-hidden='true'
+                    className="mr-[0.6em] h-5 w-5 text-gray-primary"
+                    aria-hidden="true"
                   />
                   Log out
                 </button>
@@ -209,7 +209,7 @@ const UserMenu: React.FC<Props> = ({ children }) => {
         </Menu.Items>
       </Transition>
     </Menu>
-  )
-}
+  );
+};
 
-export default UserMenu
+export default UserMenu;

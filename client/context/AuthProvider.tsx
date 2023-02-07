@@ -1,12 +1,13 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useMemo, useState } from 'react'
 import { IUser } from '../types'
 
-type UserContextType = {
+type UserContextValue = {
   me: IUser
-  setMe: (_value: IUser) => void
+  // setMe: (_value: IUser) => void
+  setMe: React.Dispatch<React.SetStateAction<IUser | any>>
 }
 
-const AuthContext = createContext<UserContextType>({
+const AuthContext = createContext<UserContextValue>({
   me: {} as IUser,
   setMe: () => {},
 })
@@ -15,12 +16,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [me, setMe] = useState<IUser>({} as IUser)
+  const value = useMemo(() => ({ me, setMe }), [me, setMe])
 
-  return (
-    <AuthContext.Provider value={{ me, setMe }}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 export default AuthContext

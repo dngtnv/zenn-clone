@@ -1,28 +1,32 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode, useState } from 'react'
-import { NextPage } from 'next'
-import { AuthProvider } from '../context/AuthProvider'
-import { Inter } from '@next/font/google'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import "../styles/globals.css";
+import type { AppProps } from "next/app";
+import { ReactElement, ReactNode, useState } from "react";
+import { NextPage } from "next";
+import { AuthProvider } from "../context/AuthProvider";
+import { Inter } from "@next/font/google";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout: (page: ReactElement, pageProps?: AppProps) => ReactNode
-}
+  getLayout: (page: ReactElement, pageProps?: AppProps) => ReactNode;
+};
 
 type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout
-}
+  Component: NextPageWithLayout;
+};
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(() => new QueryClient());
   // Use the layout defined at the page level, if available
-  const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout ?? ((page) => page);
   /* return getLayout(
     pageProps.data,
     <AuthProvider>
@@ -31,13 +35,15 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   ) */
   return (
     <QueryClientProvider client={queryClient}>
-      <main className={`${inter.variable} font-sans`}>
-        <AuthProvider>
-          {getLayout(<Component {...pageProps} />, pageProps.data)}
-        </AuthProvider>
-      </main>
+      <Hydrate state={pageProps.dehydratedState}>
+        <main className={`${inter.variable} font-sans`}>
+          <AuthProvider>
+            {getLayout(<Component {...pageProps} />, pageProps.data)}
+          </AuthProvider>
+        </main>
+      </Hydrate>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;
