@@ -1,7 +1,7 @@
-import { NextPage } from "next";
+import { NextPage } from 'next'
 
 const Enter: NextPage = () => {
-  return <div>You must login first!</div>;
-};
+  return <div>You must login first!</div>
+}
 
-export default Enter;
+export default Enter

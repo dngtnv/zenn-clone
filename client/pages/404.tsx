@@ -1,8 +1,8 @@
-import Head from "next/head";
-import Link from "next/link";
-import { ReactElement } from "react";
-import Layout from "../components/Layout";
-import { NextPageWithLayout } from "./_app";
+import Head from 'next/head'
+import Link from 'next/link'
+import { ReactElement } from 'react'
+import Layout from '../components/Layout'
+import { NextPageWithLayout } from './_app'
 
 const NotFound: NextPageWithLayout = () => {
   return (
@@ -15,11 +15,11 @@ const NotFound: NextPageWithLayout = () => {
         <Link href="/">Go back</Link>
       </div>
     </>
-  );
-};
+  )
+}
 
 NotFound.getLayout = function getLayout(page: ReactElement) {
-  return <Layout>{page}</Layout>;
-};
+  return <Layout>{page}</Layout>
+}
 
-export default NotFound;
+export default NotFound

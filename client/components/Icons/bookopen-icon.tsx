@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function SvgBookopen(props: any) {
   return (
@@ -14,5 +14,5 @@ export default function SvgBookopen(props: any) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
 interface Props {
-  width?: number | string;
-  height?: number;
-  className?: string;
+  width?: number | string
+  height?: number
+  className?: string
 }
 export default function SvgZenn(props: Props) {
   return (
@@ -23,5 +23,5 @@ export default function SvgZenn(props: Props) {
         fill="#3EA8FF"
       />
     </svg>
-  );
+  )
 }

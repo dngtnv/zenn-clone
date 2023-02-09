@@ -1,8 +1,8 @@
-import React from "react";
-import Image from "next/image";
-import SvgHeart from "../Icons/heart-icon";
-import { IArticleList } from "../../types";
-import Link from "next/link";
+import React from 'react'
+import Image from 'next/image'
+import SvgHeart from '../Icons/heart-icon'
+import { IArticleList } from '../../types'
+import Link from 'next/link'
 
 const ArticleItem: React.FC<IArticleList> = ({
   icon,
@@ -69,7 +69,7 @@ const ArticleItem: React.FC<IArticleList> = ({
         </div>
       </article>
     </div>
-  );
-};
+  )
+}
 
-export default ArticleItem;
+export default ArticleItem

@@ -1,9 +1,9 @@
-import { IArticle } from "../../../../types";
-import ArticleItem from "./ArticleItem";
+import { IArticle } from '../../../../types'
+import ArticleItem from './ArticleItem'
 
 type Props = {
-  articles: IArticle[] | undefined;
-};
+  articles: IArticle[] | undefined
+}
 
 const ArticleList = ({ articles }: Props) => {
   return (
@@ -12,7 +12,7 @@ const ArticleList = ({ articles }: Props) => {
         <ArticleItem key={article.articleId} {...article} />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default ArticleList;
+export default ArticleList

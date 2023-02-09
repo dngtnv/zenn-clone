@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function SvgLogout(props: any) {
   return (
@@ -18,5 +18,5 @@ export default function SvgLogout(props: any) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

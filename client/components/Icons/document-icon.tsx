@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function SvgDocument(props: any) {
   return (
@@ -14,5 +14,5 @@ export default function SvgDocument(props: any) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

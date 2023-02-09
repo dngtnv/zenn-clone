@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from "react";
-import { Popover, Tab, Transition } from "@headlessui/react";
-import SvgNotifBell from "../Icons/notifbell-icon";
+import React, { Fragment, useState } from 'react'
+import { Popover, Tab, Transition } from '@headlessui/react'
+import SvgNotifBell from '../Icons/notifbell-icon'
 
 interface Props {
-  children: React.ReactNode;
-  className: string;
+  children: React.ReactNode
+  className: string
 }
 
 const NotifMenu: React.FC<Props> = ({ children, className }: Props) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0)
   return (
     <Popover className="relative">
       <Popover.Button className={className}>{children}</Popover.Button>
@@ -30,8 +30,8 @@ const NotifMenu: React.FC<Props> = ({ children, className }: Props) => {
                   <button
                     className={`${
                       selected
-                        ? "!border-b-2 !border-b-primary text-primary"
-                        : "!border-b-2 !border-b-transparent text-gray-primary"
+                        ? '!border-b-2 !border-b-primary text-primary'
+                        : '!border-b-2 !border-b-transparent text-gray-primary'
                     } flex-1 p-[0.7rem] text-[0.9rem] font-semibold`}
                   >
                     All
@@ -43,8 +43,8 @@ const NotifMenu: React.FC<Props> = ({ children, className }: Props) => {
                   <button
                     className={`${
                       selected
-                        ? "border-b-2 border-b-primary text-primary"
-                        : "border-b-2 border-b-transparent text-gray-primary"
+                        ? 'border-b-2 border-b-primary text-primary'
+                        : 'border-b-2 border-b-transparent text-gray-primary'
                     } flex-1 p-[0.7rem] text-[0.9rem] font-semibold`}
                   >
                     Featured
@@ -66,7 +66,7 @@ const NotifMenu: React.FC<Props> = ({ children, className }: Props) => {
         </Popover.Panel>
       </Transition>
     </Popover>
-  );
-};
+  )
+}
 
-export default NotifMenu;
+export default NotifMenu

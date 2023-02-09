@@ -1,8 +1,8 @@
-import Head from "next/head";
-import { ReactElement } from "react";
-import Layout from "../components/Layout";
-import Navbar from "../components/Navbar";
-import { NextPageWithLayout } from "./_app";
+import Head from 'next/head'
+import { ReactElement } from 'react'
+import Layout from '../components/Layout'
+import Navbar from '../components/Navbar'
+import { NextPageWithLayout } from './_app'
 
 const Explore: NextPageWithLayout = () => {
   return (
@@ -14,8 +14,8 @@ const Explore: NextPageWithLayout = () => {
         <h1>This is explore</h1>
       </div>
     </>
-  );
-};
+  )
+}
 
 Explore.getLayout = function getLayout(page: ReactElement) {
   return (
@@ -23,6 +23,6 @@ Explore.getLayout = function getLayout(page: ReactElement) {
       <Navbar />
       {page}
     </Layout>
-  );
-};
-export default Explore;
+  )
+}
+export default Explore

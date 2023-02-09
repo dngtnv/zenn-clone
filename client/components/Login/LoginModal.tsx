@@ -1,17 +1,17 @@
-import { Dialog, Transition } from "@headlessui/react";
-import Link from "next/link";
-import { Fragment } from "react";
-import SvgClose from "../Icons/close-icon";
-import SvgGoogle from "../Icons/google-icon";
-import SvgZenn from "../Icons/zenn-logo";
-import getGoogleOauthUrl from "../../utils/getGoogleUrl";
-import { Inter } from "@next/font/google";
+import { Dialog, Transition } from '@headlessui/react'
+import Link from 'next/link'
+import { Fragment } from 'react'
+import SvgClose from '../Icons/close-icon'
+import SvgGoogle from '../Icons/google-icon'
+import SvgZenn from '../Icons/zenn-logo'
+import getGoogleOauthUrl from '../../utils/getGoogleUrl'
+import { Inter } from '@next/font/google'
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] })
 
 interface Props {
-  isOpen: boolean;
-  closeModal(): void;
+  isOpen: boolean
+  closeModal(): void
 }
 
 export default function LoginModal(props: Props) {
@@ -85,7 +85,7 @@ export default function LoginModal(props: Props) {
                     </button> */}
                   </div>
                   <Dialog.Description className="mt-[1.3rem] text-left text-[0.78em] text-secondary tablet:text-sm">
-                    Please log in after agreeing to the{" "}
+                    Please log in after agreeing to the{' '}
                     <Link
                       href="terms"
                       className="inline-block underline underline-offset-[0.2em] hover:text-blue-lighter hover:no-underline"
@@ -107,5 +107,5 @@ export default function LoginModal(props: Props) {
         </Dialog>
       </Transition>
     </>
-  );
+  )
 }

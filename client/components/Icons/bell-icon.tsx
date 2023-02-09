@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function SvgBell({ size = 23 }) {
   return (
@@ -14,5 +14,5 @@ export default function SvgBell({ size = 23 }) {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

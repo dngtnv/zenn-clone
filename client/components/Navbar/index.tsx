@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const Navbar = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <nav className="border-b-gray-border-lighter sticky top-0 z-10 border-b bg-white">
@@ -11,9 +11,9 @@ const Navbar = () => {
           <Link
             href="/"
             className={`${
-              router.pathname == "/"
-                ? "border-b-[2.5px] border-b-primary text-primary"
-                : "border-b-[2.5px] border-b-transparent text-secondary"
+              router.pathname == '/'
+                ? 'border-b-[2.5px] border-b-primary text-primary'
+                : 'border-b-[2.5px] border-b-transparent text-secondary'
             } 'text-base mr-[27.2px] py-2 font-semibold`}
           >
             Trending
@@ -21,9 +21,9 @@ const Navbar = () => {
           <Link
             href="/following"
             className={`${
-              router.pathname == "/following"
-                ? "border-b-[2.5px] border-b-primary text-primary"
-                : "border-b-[2.5px] border-b-transparent text-secondary"
+              router.pathname == '/following'
+                ? 'border-b-[2.5px] border-b-primary text-primary'
+                : 'border-b-[2.5px] border-b-transparent text-secondary'
             } 'text-base mr-[27.2px] py-2 font-semibold`}
           >
             Following
@@ -31,9 +31,9 @@ const Navbar = () => {
           <Link
             href="/explore"
             className={`${
-              router.pathname == "/explore"
-                ? "border-b-[2.5px] border-b-primary text-primary"
-                : "border-b-[2.5px] border-b-transparent text-secondary"
+              router.pathname == '/explore'
+                ? 'border-b-[2.5px] border-b-primary text-primary'
+                : 'border-b-[2.5px] border-b-transparent text-secondary'
             } 'text-base mr-[27.2px] py-2 font-semibold`}
           >
             Explore
@@ -41,6 +41,6 @@ const Navbar = () => {
         </div>
       </div>
     </nav>
-  );
-};
-export default Navbar;
+  )
+}
+export default Navbar

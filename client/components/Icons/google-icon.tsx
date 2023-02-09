@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react'
 
 interface Props {
-  w?: number;
-  h?: number;
-  className?: string;
+  w?: number
+  h?: number
+  className?: string
 }
 
 export default function SvgGoogle(props: Props) {
@@ -32,5 +32,5 @@ export default function SvgGoogle(props: Props) {
         fill="#ea4335"
       />
     </svg>
-  );
+  )
 }

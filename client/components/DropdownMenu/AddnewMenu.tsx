@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
-import scrapPic from "../../public/scrap.png";
-import articlePic from "../../public/article.png";
-import bookPic from "../../public/book.png";
-import Image from "next/image";
-import Link from "next/link";
+import React, { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import scrapPic from '../../public/scrap.png'
+import articlePic from '../../public/article.png'
+import bookPic from '../../public/book.png'
+import Image from 'next/image'
+import Link from 'next/link'
 
 interface Props {
-  children: string;
-  className: string;
+  children: string
+  className: string
 }
 
 const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
@@ -30,7 +30,7 @@ const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
               <Link
                 href="#"
                 className={`${
-                  active && "bg-main-gray"
+                  active && 'bg-main-gray'
                 } group flex w-full flex-wrap items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5]`}
               >
                 <span className="mr-[0.6em] inline-flex">
@@ -45,7 +45,7 @@ const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
               <Link
                 href="#"
                 className={`${
-                  active && "bg-main-gray"
+                  active && 'bg-main-gray'
                 } group flex w-full flex-wrap items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5]`}
               >
                 <span className="mr-[0.6em] inline-flex">
@@ -60,7 +60,7 @@ const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
               <Link
                 href="#"
                 className={`${
-                  active && "bg-main-gray"
+                  active && 'bg-main-gray'
                 } group flex w-full flex-wrap items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5]`}
               >
                 <span className="mr-[0.6em] inline-flex">
@@ -73,7 +73,7 @@ const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
         </Menu.Items>
       </Transition>
     </Menu>
-  );
-};
+  )
+}
 
-export default AddnewMenu;
+export default AddnewMenu

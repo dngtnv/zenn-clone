@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 export default function SvgRss(props: any) {
   return (
@@ -22,5 +22,5 @@ export default function SvgRss(props: any) {
         d="M41.7 41.72h-5.45v-1.37A28.61 28.61 0 0 0 7.63 11.74H6.27V6.28h1.36A34.08 34.08 0 0 1 41.7 40.35z"
       />
     </svg>
-  );
+  )
 }

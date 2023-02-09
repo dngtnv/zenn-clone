@@ -1,5 +1,5 @@
-import Link from "next/link";
-import SvgZenn from "../Icons/zenn-logo";
+import Link from 'next/link'
+import SvgZenn from '../Icons/zenn-logo'
 
 const Footer: React.FC = () => {
   return (
@@ -111,6 +111,6 @@ const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
-  );
-};
-export default Footer;
+  )
+}
+export default Footer

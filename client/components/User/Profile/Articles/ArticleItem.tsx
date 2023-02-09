@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { IArticle } from "../../../../types";
-import SvgFavorite from "../../../Icons/favorite-icon";
+import Link from 'next/link'
+import { IArticle } from '../../../../types'
+import SvgFavorite from '../../../Icons/favorite-icon'
 
 const ArticleItem: React.FC<IArticle> = ({ ...article }: IArticle) => {
   return (
@@ -35,7 +35,7 @@ const ArticleItem: React.FC<IArticle> = ({ ...article }: IArticle) => {
         </div>
       </Link>
     </article>
-  );
-};
+  )
+}
 
-export default ArticleItem;
+export default ArticleItem

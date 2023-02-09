@@ -1,16 +1,16 @@
-import { useState } from "react";
-import Image from "next/image";
-import SvgMan from "../../public/man-working.svg";
-import LoginModal from "./LoginModal";
+import { useState } from 'react'
+import Image from 'next/image'
+import SvgMan from '../../public/man-working.svg'
+import LoginModal from './LoginModal'
 
 const LoginCta: React.FC = () => {
-  let [isOpen, setIsOpen] = useState(false);
+  let [isOpen, setIsOpen] = useState(false)
 
   function closeModal() {
-    setIsOpen(false);
+    setIsOpen(false)
   }
   function openModal() {
-    setIsOpen(true);
+    setIsOpen(true)
   }
 
   return (
@@ -47,7 +47,7 @@ const LoginCta: React.FC = () => {
       </aside>
       <LoginModal isOpen={isOpen} closeModal={closeModal} />
     </>
-  );
-};
+  )
+}
 
-export default LoginCta;
+export default LoginCta
