@@ -15,7 +15,7 @@ import {
 } from '../service/session.service'
 
 const accessTokenCookieOptions: CookieOptions = {
-  maxAge: 60000, // 1 min
+  maxAge: 900000, // 15 mins
   httpOnly: true,
   domain: 'localhost',
   path: '/',
