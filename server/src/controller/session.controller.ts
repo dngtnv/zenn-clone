@@ -13,9 +13,10 @@ import {
   reIssueAccessToken,
   updateSession,
 } from '../service/session.service'
+import logger from '../library/logger'
 
 const accessTokenCookieOptions: CookieOptions = {
-  maxAge: 900000, // 15 mins
+  maxAge: 60000, // 15 mins
   httpOnly: true,
   domain: 'localhost',
   path: '/',
@@ -65,7 +66,7 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
     // get user with tokens
     const googleUser = await getGoogleUser({ id_token, access_token })
     // jwt.decode(id_token)
-    console.log({ googleUser })
+    logger.info({ googleUser })
 
     if (!googleUser?.verified_email) {
       return res.status(403).send('Google account is not verified')
