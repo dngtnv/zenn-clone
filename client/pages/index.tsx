@@ -108,7 +108,11 @@ const Home = () => {
 }
 const HomeWithAuth = withAuth(Home)
 
-HomeWithAuth.getLayout = function getLayout(page: ReactElement) {
+const HomeWithLayout = (props: any) => {
+  return <HomeWithAuth {...props} />
+}
+
+HomeWithLayout.getLayout = function getLayout(page: ReactElement) {
   return (
     <Layout>
       <Navbar />
@@ -118,4 +122,4 @@ HomeWithAuth.getLayout = function getLayout(page: ReactElement) {
   )
 }
 
-export default HomeWithAuth
+export default HomeWithLayout

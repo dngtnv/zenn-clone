@@ -28,7 +28,11 @@ axiosPrivate.interceptors.response.use(
       prevRequest.sent = true
       const newAccessToken = await axiosPrivate.get('/sessions/refresh')
       prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
-      return axiosPrivate({ method: prevRequest.method, url: prevRequest.url })
+      return axiosPrivate({
+        method: prevRequest.method,
+        url: prevRequest.url,
+        data: prevRequest.data,
+      })
     }
     return Promise.reject(error)
   }

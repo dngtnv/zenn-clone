@@ -11,7 +11,7 @@ type UserContextValue = {
 
 const AuthContext = createContext<UserContextValue>({
   auth: {} as IUser,
-  setAuth: () => {},
+  setAuth: () => { },
 })
 
 type Props = {
@@ -33,9 +33,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setAuth({
           username: data.currentUser.username,
           avatarUrl: data.currentUser.avatarUrl,
+          bio: data.currentUser.bio,
+          githubUsername: data.currentUser.githubUsername,
+          twitterUsername: data.currentUser.twitterUsername,
+          websiteUrl: data.currentUser.websiteUrl,
         })
+        const cachedUser = {
+          cachedUser: data.currentUser,
+        }
         if (!localStorage.getItem('zenn_clone_current_user')) {
-          localStorage.setItem('zenn_clone_current_user', JSON.stringify(data))
+          localStorage.setItem(
+            'zenn_clone_current_user',
+            JSON.stringify(cachedUser)
+          )
         }
       },
     }

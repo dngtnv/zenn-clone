@@ -1,18 +1,21 @@
+import { useQuery } from '@tanstack/react-query'
 import { NextPageContext } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement, useContext } from 'react'
+import SvgGithub from '../components/Icons/github-icon'
+import SvgLink from '../components/Icons/link-icon'
 import SvgRss from '../components/Icons/rss-icon'
+import SvgTwitter from '../components/Icons/twitter-icon'
 import Layout from '../components/Layout'
 import Tooltip from '../components/Tooltip'
+import ArticleList from '../components/User/Profile/Articles/ArticleList'
+import AuthContext from '../context/AuthProvider'
 import { IArticle, IUser } from '../types'
 import { axiosPrivate } from '../utils/axios'
 import { publicFetcher } from '../utils/fetcher'
 import { NextPageWithLayout } from './_app'
-import ArticleList from '../components/User/Profile/Articles/ArticleList'
-import { useQuery } from '@tanstack/react-query'
-import AuthContext from '../context/AuthProvider'
 
 type Props = {
   user: IUser
@@ -29,14 +32,15 @@ const UserProfile: NextPageWithLayout<Props> = ({
   initialActiveItemType,
 }) => {
   const { auth } = useContext(AuthContext)
+  const notMe = auth.username !== user.username
 
   const baseUrl = `${process.env.NEXT_PUBLIC_SERVER_ENDPOINT}/api/`
   const endpoint =
     initialActiveItemType === 'articles'
       ? `${baseUrl}articles?username=${user.username}`
       : initialActiveItemType === 'scraps'
-      ? `${baseUrl}scraps?username=${user.username}`
-      : `${baseUrl}users/${user.username}/comments`
+        ? `${baseUrl}scraps?username=${user.username}`
+        : `${baseUrl}users/${user.username}/comments`
 
   const { data, isLoading } = useQuery<profileProps | null>(
     ['profile_items', endpoint],
@@ -72,7 +76,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
                 </h1>
                 <div className='ml-[10px] min-w-[100px] text-right'>
                   {Object.keys(auth).length !== 0 &&
-                  auth.username == user.username ? (
+                    auth.username == user.username ? (
                     <Link
                       className='rounded-[0.45em] border border-gray-bd-lighter py-[0.45em] px-[0.75rem] text-[0.85rem] text-primary shadow-[0_2px_3px_-2px_#21253840] hover:border hover:border-[#d6e3ed] hover:bg-[#f5fbff] focus:border focus:border-blue-lighter focus:shadow-[0_0_0_2.5px_#bfdcff] focus:outline-0'
                       href='/settings/profile'
@@ -80,8 +84,7 @@ const UserProfile: NextPageWithLayout<Props> = ({
                       Edit profile
                     </Link>
                   ) : null}
-                  {Object.keys(auth).length === 0 ||
-                  auth.username !== user.username ? (
+                  {Object.keys(auth).length === 0 || notMe ? (
                     <button className='inline-flex h-9 w-[100px] items-center justify-center whitespace-nowrap rounded-[99rem] border border-secondary text-[14.5px] text-secondary'>
                       Follow
                     </button>
@@ -93,8 +96,41 @@ const UserProfile: NextPageWithLayout<Props> = ({
                   {user.bio}
                 </p>
                 <div className='mt-[0.3rem] flex flex-wrap items-center'>
+                  {user.githubUsername ? (
+                    <Link
+                      className='mr-[0.7rem] text-gray-primary hover:text-primary'
+                      href={`https://github.com/${user.githubUsername}`}
+                    >
+                      <Tooltip TagName='span' label={`@${user.githubUsername}`}>
+                        <SvgGithub />
+                      </Tooltip>
+                    </Link>
+                  ) : null}
+                  {user.twitterUsername ? (
+                    <Link
+                      className='mr-[0.7rem] text-gray-primary hover:text-primary'
+                      href={`https://twitter.com/${user.twitterUsername}`}
+                    >
+                      <Tooltip
+                        TagName='span'
+                        label={`@${user.twitterUsername}`}
+                      >
+                        <SvgTwitter />
+                      </Tooltip>
+                    </Link>
+                  ) : null}
+                  {user.websiteUrl ? (
+                    <Link
+                      className='mr-[0.7rem] text-gray-primary hover:text-primary'
+                      href={user.websiteUrl}
+                    >
+                      <Tooltip TagName='span' label={user.websiteUrl}>
+                        <SvgLink />
+                      </Tooltip>
+                    </Link>
+                  ) : null}
                   <Link
-                    className='text-gray-primary hover:text-primary'
+                    className='mr-[0.7rem] text-gray-primary hover:text-primary'
                     href='#'
                   >
                     <Tooltip TagName='span' label='RSS'>
@@ -113,11 +149,10 @@ const UserProfile: NextPageWithLayout<Props> = ({
             href={`/${user.username}`}
             scroll={false}
             replace
-            className={`${
-              initialActiveItemType == 'articles'
-                ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
-                : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
-            } 'text-base mr-6 py-[0.3rem] font-semibold`}
+            className={`${initialActiveItemType == 'articles'
+              ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
+              : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
+              } 'text-base mr-6 py-[0.3rem] font-semibold`}
           >
             Articles
           </Link>
@@ -125,11 +160,10 @@ const UserProfile: NextPageWithLayout<Props> = ({
             href={`/${user.username}?tab=scraps`}
             scroll={false}
             replace
-            className={`${
-              initialActiveItemType == 'scraps'
-                ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
-                : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
-            } 'text-base mr-6 py-[0.3rem] font-semibold`}
+            className={`${initialActiveItemType == 'scraps'
+              ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
+              : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
+              } 'text-base mr-6 py-[0.3rem] font-semibold`}
           >
             Scraps
           </Link>
@@ -137,11 +171,10 @@ const UserProfile: NextPageWithLayout<Props> = ({
             href={`/${user.username}?tab=comments`}
             replace
             scroll={false}
-            className={`${
-              initialActiveItemType == 'comments'
-                ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
-                : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
-            } 'text-base mr-6 py-[0.3rem] font-semibold`}
+            className={`${initialActiveItemType == 'comments'
+              ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
+              : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
+              } 'text-base mr-6 py-[0.3rem] font-semibold`}
           >
             Comments
           </Link>

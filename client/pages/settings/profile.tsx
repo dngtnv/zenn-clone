@@ -1,31 +1,35 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useContext, useEffect, useState } from 'react'
 import SvgGithub from '../../components/Icons/github-icon'
 import SvgLink from '../../components/Icons/link-icon'
 import SvgTwitter from '../../components/Icons/twitter-icon'
 import Layout from '../../components/Layout'
 import BioTextArea from '../../components/UI/BioTextArea'
-import { withAuth } from '../../HOC/withAuthProvider'
+import { AuthContext } from '../../HOC/withAuthProvider'
+import { updateUser } from '../../services/users'
 
-const Profile = ({ value }: any) => {
+const Profile = () => {
   const styles = {
     textField:
       'text-[15px] w-full block appearance-none rounded-[7px] bg-main-gray border border-gray-bd-lighter focus:outline-0 focus:border focus:border-blue-lighter focus:shadow-[0px_0px_0px_2.5px_#bfdcff]',
     fieldLabel: 'flex items-center text-[0.85rem] font-bold leading-[1.4] mb-2',
   }
-  const currentUser = value.auth
+
+  const { auth } = useContext(AuthContext)
+
   const [isError, setIsError] = useState(false)
 
-  const [values, setValues] = useState({ username: '', bio: '' })
+  const [values, setValues] = useState({
+    username: '',
+    bio: '',
+    githubUsername: '',
+    twitterUsername: '',
+    websiteUrl: '',
+  })
 
   const router = useRouter()
-  useEffect(() => {
-    if (Object.keys(currentUser).length === 0) {
-      router.push('/enter')
-    }
-  }, [])
 
   function handleChange(event: any) {
     const value = event.target.value
@@ -36,8 +40,23 @@ const Profile = ({ value }: any) => {
       setIsError(false)
     }
   }
-  function handleSubmit() {
-    console.log({ username: values.username, bio: values.bio })
+  async function handleSubmit() {
+    const inputValues = {
+      username: values.username,
+      bio: values.bio,
+      githubUsername: values.githubUsername,
+      twitterUsername: values.twitterUsername,
+      websiteUrl: values.websiteUrl,
+    }
+    const updatedUser = await updateUser(inputValues)
+    const cachedUser = {
+      cachedUser: updatedUser,
+    }
+    // update new info of user to localStorage
+    localStorage.setItem(
+      'zenn_clone_current_user',
+      JSON.stringify(cachedUser)
+    )
   }
 
   useEffect(() => {
@@ -45,9 +64,14 @@ const Profile = ({ value }: any) => {
       const value: any = localStorage.getItem('zenn_clone_current_user')
       const data = JSON.parse(value)
       setValues({
-        username: data.currentUser.username,
-        bio: data.currentUser.bio,
+        username: data.cachedUser.username,
+        bio: data.cachedUser.bio,
+        githubUsername: data.cachedUser.githubUsername,
+        twitterUsername: data.cachedUser.twitterUsername,
+        websiteUrl: data.cachedUser.websiteUrl,
       })
+    } else {
+      router.push('/enter')
     }
   }, [])
 
@@ -70,16 +94,16 @@ const Profile = ({ value }: any) => {
               </div>
             </div>
             <section className='my-[2rem] min-h-[200px]'>
-              {!Object.keys(currentUser).length ? null : (
+              {!Object.keys(auth).length ? null : (
                 <div className='block tablet:flex tablet:items-start tablet:justify-between'>
                   <div className='inline-block text-center text-gray-primary'>
                     <span className='mx-auto flex h-[90px] w-[90px] items-center justify-center tablet:mx-0 tablet:h-auto tablet:w-auto'>
                       <Image
                         className='block flex-shrink-0 rounded-[50%] text-[11px] shadow-[0px_2px_4px_rgba(33,37,56,0.25)]'
-                        src={currentUser.avatarUrl}
+                        src={auth.avatarUrl}
                         width={110}
                         height={110}
-                        alt={currentUser.username}
+                        alt={auth.username}
                         priority
                       />
                     </span>
@@ -131,6 +155,7 @@ const Profile = ({ value }: any) => {
                           <SvgGithub className='mr-[0.3em]' /> GitHub username
                         </label>
                         <input
+                          name='githubUsername'
                           className={`${styles.textField} py-[0.6em] pl-[0.7em] leading-[1.4]`}
                           placeholder='Enter username only'
                           spellCheck='false'
@@ -138,6 +163,8 @@ const Profile = ({ value }: any) => {
                           id='user-github-username'
                           aria-invalid='false'
                           autoComplete='off'
+                          value={values.githubUsername}
+                          onChange={handleChange}
                         />
                       </div>
                       <div className='mt-[1.7rem] w-full mobile:w-[47%]'>
@@ -149,6 +176,7 @@ const Profile = ({ value }: any) => {
                           Twitter username
                         </label>
                         <input
+                          name='twitterUsername'
                           className={`${styles.textField} py-[0.6em] pl-[0.7em] leading-[1.4]`}
                           placeholder='Enter without @'
                           spellCheck='false'
@@ -156,6 +184,8 @@ const Profile = ({ value }: any) => {
                           id='user-twitter-username'
                           aria-invalid='false'
                           autoComplete='off'
+                          value={values.twitterUsername}
+                          onChange={handleChange}
                         />
                       </div>
                       <div className='mt-[1.7rem] w-full'>
@@ -166,6 +196,7 @@ const Profile = ({ value }: any) => {
                           <SvgLink className='mr-[0.3em]' /> Your website
                         </label>
                         <input
+                          name='websiteUrl'
                           className={`${styles.textField} py-[0.6em] pl-[0.7em] leading-[1.4]`}
                           placeholder='https://example.com'
                           spellCheck='false'
@@ -173,6 +204,8 @@ const Profile = ({ value }: any) => {
                           id='user-website-url'
                           aria-invalid='false'
                           autoComplete='off'
+                          value={values.websiteUrl}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
@@ -199,10 +232,14 @@ const Profile = ({ value }: any) => {
   )
 }
 
-const ProfileWithAuth = withAuth(Profile)
+// const ProfileWithAuth = withAuth(Profile)
 
-ProfileWithAuth.getLayout = function getLayout(page: ReactElement) {
+// const ProfileWithLayout = (props: any) => {
+//   return <ProfileWithAuth {...props} />
+// }
+
+Profile.getLayout = function getLayout(page: ReactElement) {
   return <Layout>{page}</Layout>
 }
 
-export default ProfileWithAuth
+export default Profile

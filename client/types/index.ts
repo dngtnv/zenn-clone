@@ -14,6 +14,9 @@ export interface IUser {
   username: string
   bio?: string
   avatarUrl: string
+  githubUsername?: string
+  twitterUsername?: string
+  websiteUrl?: string
 }
 
 export interface IArticle {
