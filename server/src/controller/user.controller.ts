@@ -9,6 +9,15 @@ export const getCurrentUser = async (req: Request, res: Response) => {
   return res.json({ currentUser: res.locals.user })
 }
 
+export const updateCurrentUser = async (req: Request, res: Response) => {
+  const update = req.body
+  const username = res.locals.user.username
+  const updateUser = await findAndUpdateUser({ username }, update, {
+    new: true,
+  })
+  return res.json({ updateUser })
+}
+
 export const checkUserExist = async (req: Request, res: Response) => {
   try {
     const username = req.params.username

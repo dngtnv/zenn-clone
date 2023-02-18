@@ -6,8 +6,11 @@ export interface UserDocument extends mongoose.Document {
   name: string
   bio: string
   avatarUrl: string
-  createAt: Date
-  updateAt: Date
+  githubUsername: string
+  twitterUsername: string
+  websiteUrl: string
+  createdAt: Date
+  updatedAt: Date
 }
 const userSchema = new mongoose.Schema(
   {
@@ -16,6 +19,9 @@ const userSchema = new mongoose.Schema(
     name: { type: String, required: true },
     bio: { type: String, required: false },
     avatarUrl: { type: String },
+    githubUsername: { type: String, required: false },
+    twitterUsername: { type: String, required: false },
+    websiteUrl: { type: String, required: false },
   },
   {
     timestamps: true,
