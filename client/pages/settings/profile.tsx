@@ -22,7 +22,7 @@ const Profile = () => {
   const [isError, setIsError] = useState(false)
 
   const [values, setValues] = useState({
-    username: '',
+    name: '',
     bio: '',
     githubUsername: '',
     twitterUsername: '',
@@ -32,9 +32,9 @@ const Profile = () => {
   const router = useRouter()
 
   function handleChange(event: any) {
-    const value = event.target.value
-    setValues({ ...values, [event.target.name]: value })
-    if (event.target.name === 'username' && event.target.value.length > 40) {
+    const { name, value } = event.target
+    setValues({ ...values, [name]: value })
+    if (name === 'username' && value.length > 40) {
       setIsError(true)
     } else {
       setIsError(false)
@@ -42,7 +42,7 @@ const Profile = () => {
   }
   async function handleSubmit() {
     const inputValues = {
-      username: values.username,
+      name: values.name,
       bio: values.bio,
       githubUsername: values.githubUsername,
       twitterUsername: values.twitterUsername,
@@ -53,18 +53,19 @@ const Profile = () => {
       cachedUser: updatedUser,
     }
     // update new info of user to localStorage
-    localStorage.setItem(
-      'zenn_clone_current_user',
-      JSON.stringify(cachedUser)
-    )
+    localStorage.setItem('zenn_clone_current_user', JSON.stringify(cachedUser))
   }
 
   useEffect(() => {
     if (localStorage.getItem('zenn_clone_current_user')) {
       const value: any = localStorage.getItem('zenn_clone_current_user')
       const data = JSON.parse(value)
+      // check if user has not finished creating an account
+      if (!data.cachedUser.username) {
+        router.push('/enter')
+      }
       setValues({
-        username: data.cachedUser.username,
+        name: data.cachedUser.name,
         bio: data.cachedUser.bio,
         githubUsername: data.cachedUser.githubUsername,
         twitterUsername: data.cachedUser.twitterUsername,
@@ -115,7 +116,7 @@ const Profile = () => {
                     </label>
                     <input
                       className={`${styles.textField} py-[0.6em] pl-[0.7em] leading-[1.4]`}
-                      name='username'
+                      name='name'
                       id='user-name'
                       placeholder='Enter display name'
                       spellCheck='false'
@@ -123,7 +124,7 @@ const Profile = () => {
                       required
                       aria-invalid='false'
                       autoComplete='false'
-                      value={values.username}
+                      value={values.name}
                       onChange={handleChange}
                     />
                     {isError ? (
@@ -214,7 +215,7 @@ const Profile = () => {
                     </p>
                     <div className='mt-8 text-center'>
                       <button
-                        onClick={handleSubmit}
+                        onClick={isError ? undefined : handleSubmit}
                         className='inline-flex items-center justify-center whitespace-nowrap rounded-[0.45em] border border-[rgba(92,147,187,0.15)] bg-blue-lighter py-[0.6em] px-[1.5em] text-center text-base font-bold leading-[1.4] text-white shadow-[0px_3px_5px_-2px_rgba(33,37,56,25%)] hover:bg-blue-darker hover:shadow-[0px_3px_5px_-2px_rgba(33,37,56,0.25)] focus:bg-blue-darker focus:shadow-[0_0_0_3px_#bfdcff] disabled:cursor-auto disabled:opacity-[0.7]'
                         disabled={isError}
                       >

@@ -39,8 +39,8 @@ const UserProfile: NextPageWithLayout<Props> = ({
     initialActiveItemType === 'articles'
       ? `${baseUrl}articles?username=${user.username}`
       : initialActiveItemType === 'scraps'
-        ? `${baseUrl}scraps?username=${user.username}`
-        : `${baseUrl}users/${user.username}/comments`
+      ? `${baseUrl}scraps?username=${user.username}`
+      : `${baseUrl}users/${user.username}/comments`
 
   const { data, isLoading } = useQuery<profileProps | null>(
     ['profile_items', endpoint],
@@ -72,11 +72,11 @@ const UserProfile: NextPageWithLayout<Props> = ({
             <div className='mt-[0.8rem] flex-1 pl-0 text-[0.95rem] leading-[1.6] tablet:mt-0 tablet:pl-7'>
               <div className='flex items-center justify-center'>
                 <h1 className='mt-[0.3rem] flex-1 break-all text-[1.4rem] font-bold leading-[1.3]'>
-                  {user.username}
+                  {user.name}
                 </h1>
                 <div className='ml-[10px] min-w-[100px] text-right'>
                   {Object.keys(auth).length !== 0 &&
-                    auth.username == user.username ? (
+                  auth.username == user.username ? (
                     <Link
                       className='rounded-[0.45em] border border-gray-bd-lighter py-[0.45em] px-[0.75rem] text-[0.85rem] text-primary shadow-[0_2px_3px_-2px_#21253840] hover:border hover:border-[#d6e3ed] hover:bg-[#f5fbff] focus:border focus:border-blue-lighter focus:shadow-[0_0_0_2.5px_#bfdcff] focus:outline-0'
                       href='/settings/profile'
@@ -149,10 +149,11 @@ const UserProfile: NextPageWithLayout<Props> = ({
             href={`/${user.username}`}
             scroll={false}
             replace
-            className={`${initialActiveItemType == 'articles'
-              ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
-              : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
-              } 'text-base mr-6 py-[0.3rem] font-semibold`}
+            className={`${
+              initialActiveItemType == 'articles'
+                ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
+                : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
+            } 'text-base mr-6 py-[0.3rem] font-semibold`}
           >
             Articles
           </Link>
@@ -160,10 +161,11 @@ const UserProfile: NextPageWithLayout<Props> = ({
             href={`/${user.username}?tab=scraps`}
             scroll={false}
             replace
-            className={`${initialActiveItemType == 'scraps'
-              ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
-              : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
-              } 'text-base mr-6 py-[0.3rem] font-semibold`}
+            className={`${
+              initialActiveItemType == 'scraps'
+                ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
+                : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
+            } 'text-base mr-6 py-[0.3rem] font-semibold`}
           >
             Scraps
           </Link>
@@ -171,10 +173,11 @@ const UserProfile: NextPageWithLayout<Props> = ({
             href={`/${user.username}?tab=comments`}
             replace
             scroll={false}
-            className={`${initialActiveItemType == 'comments'
-              ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
-              : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
-              } 'text-base mr-6 py-[0.3rem] font-semibold`}
+            className={`${
+              initialActiveItemType == 'comments'
+                ? 'pointer-events-none border-b-[2.5px] border-b-primary text-primary'
+                : 'border-b-[2.5px] border-b-transparent text-secondary hover:text-primary'
+            } 'text-base mr-6 py-[0.3rem] font-semibold`}
           >
             Comments
           </Link>

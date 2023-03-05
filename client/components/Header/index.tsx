@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
+import { AuthContext } from '../../HOC/withAuthProvider'
 import AddnewMenu from '../DropdownMenu/AddnewMenu'
 import NotifMenu from '../DropdownMenu/NotifMenu'
 import UserMenu from '../DropdownMenu/UserMenu'
@@ -8,7 +9,6 @@ import SvgBell from '../Icons/bell-icon'
 import SvgSearch from '../Icons/search-icon'
 import SvgZenn from '../Icons/zenn-logo'
 import LoginModal from '../Login/LoginModal'
-import { AuthContext } from '../../HOC/withAuthProvider'
 
 const Header = () => {
   const { auth } = useContext(AuthContext)
@@ -29,7 +29,7 @@ const Header = () => {
             <SvgZenn height={22} />
           </Link>
           <div className='transition-all duration-[0.3s] ease-in'>
-            {Object.keys(auth).length != 0 ? (
+            {Object.keys(auth).length != 0 && auth.username ? (
               <div className='flex items-center'>
                 <Link
                   href='/search'
