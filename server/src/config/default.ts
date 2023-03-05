@@ -8,6 +8,7 @@ const MONGO_PASSWORD = process.env.MONGO_PASSWORD || ''
 export default {
   port: process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 5000,
   origin: 'http://localhost:3000',
+  init: 'http://localhost:3000/auth/init',
   accessTokenTtl: '1m',
   refreshTokenTtl: '1d',
   publicKey: process.env.PUBLIC_KEY || '',

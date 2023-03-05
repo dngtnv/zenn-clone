@@ -1,19 +1,19 @@
 import { CookieOptions, Request, Response } from 'express'
-import { signJwt, verifyJwt } from '../utils/jwt.utils'
-import config from '../config/default'
 import { get } from 'lodash'
-import {
-  findAndUpdateUser,
-  getGoogleOauthTokens,
-  getGoogleUser,
-} from '../service/user.service'
+import config from '../config/default'
+import logger from '../library/logger'
 import {
   createSession,
   findSessions,
   reIssueAccessToken,
   updateSession,
 } from '../service/session.service'
-import logger from '../library/logger'
+import {
+  findAndUpdateUser,
+  getGoogleOauthTokens,
+  getGoogleUser,
+} from '../service/user.service'
+import { signJwt, verifyJwt } from '../utils/jwt.utils'
 
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 60000, // 15 mins
@@ -78,7 +78,6 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
       },
       {
         email: googleUser.email,
-        name: googleUser.name,
         avatarUrl: googleUser.picture,
       },
       {
@@ -97,11 +96,15 @@ export const googleOauthHandler = async (req: Request, res: Response) => {
       { ...user?.toJSON(), session: session._id },
       { expiresIn: config.refreshTokenTtl } // 1 day
     )
+
     // set cookies
     res.cookie('accessToken', accessToken, accessTokenCookieOptions)
     res.cookie('refreshToken', refreshToken, refreshTokenCookieOptions)
 
     // redirect back to client
+    if (!user?.username) {
+      return res.redirect(config.init)
+    }
     return res.redirect(config.origin)
   } catch (error) {
     console.log(error)
