@@ -1,10 +1,13 @@
 import { Request, Response } from 'express'
 import logger from '../library/logger'
 import { UpdateUserInput } from '../schema/user.schema'
-import { findAndUpdateUser, findUser } from '../service/user.service'
+import {
+  findAndDeleteUser,
+  findAndUpdateUser,
+  findUser,
+} from '../service/user.service'
 
 export const getCurrentUser = async (req: Request, res: Response) => {
-  res.setHeader('Cache-Control', 'private, max-age=0, must-validate')
   res.set({ 'x-access-token': req.cookies['accessToken'] })
   return res.json({ currentUser: res.locals.user })
 }
@@ -16,6 +19,16 @@ export const updateCurrentUser = async (req: Request, res: Response) => {
     new: true,
   })
   return res.json({ updateUser })
+}
+
+export const deleteCurrentUser = async (res: Response) => {
+  try {
+    const userId = res.locals.user._id
+    await findAndDeleteUser({ userId })
+    return res.sendStatus(204)
+  } catch (err) {
+    logger.error(err)
+  }
 }
 
 export const checkUserExist = async (req: Request, res: Response) => {
