@@ -92,3 +92,7 @@ export const findAndUpdateUser = async (
 ) => {
   return UserModel.findOneAndUpdate(query, update, options)
 }
+
+export const findAndDeleteUser = async (query: FilterQuery<UserDocument>) => {
+  return UserModel.deleteOne(query)
+}
