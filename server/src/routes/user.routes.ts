@@ -1,6 +1,7 @@
 import express from 'express'
 import {
   checkUserExist,
+  deleteCurrentUser,
   getCurrentUser,
   updateCurrentUser,
   updateUserHandler,
@@ -21,6 +22,7 @@ router.put(
   [requireUser, validateResource(updateCurrentUserSchema)],
   updateCurrentUser
 )
+router.delete('/api/me/cancel', requireUser, deleteCurrentUser)
 
 router.put(
   '/api/users/:userId',
@@ -30,7 +32,7 @@ router.put(
 
 router.get('/api/users/:username', checkUserExist)
 
-router.get('/api/users/:username/comments', (req, res) => {
+router.get('/api/users/:username/comments', (_, res) => {
   res.status(200).send({ comments: [] })
 })
 
