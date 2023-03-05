@@ -1,14 +1,18 @@
-import { axiosPrivate } from "../utils/axios"
+import { axiosPrivate } from '../utils/axios'
 
 interface UserData {
-  username: string,
-  bio: string,
-  githubUsername: string,
-  twitterUsername: string,
-  websiteUrl: string
+  name: string
+  bio?: string
+  githubUsername?: string
+  twitterUsername?: string
+  websiteUrl?: string
 }
 
-export const updateUser = async (props: UserData) => {
+interface UserDataInit extends UserData {
+  username: string
+}
+
+export const updateUser = async (props: UserData | UserDataInit) => {
   try {
     const { data } = await axiosPrivate.put('/me', props)
     const user = data.updateUser
