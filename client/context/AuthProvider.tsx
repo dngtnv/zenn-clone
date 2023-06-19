@@ -46,6 +46,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
             'zenn_clone_current_user',
             JSON.stringify(cachedUser)
           )
+        } else {
+          // if in localStorage already have current_user, then update it
+          localStorage.removeItem('zenn_clone_current_user')
+          localStorage.setItem(
+            'zenn_clone_current_user',
+            JSON.stringify(cachedUser)
+          )
         }
       },
     }
