@@ -22,3 +22,12 @@ export const updateUser = async (props: UserData | UserDataInit) => {
     throw err
   }
 }
+
+export const cancelRegistration = async () => {
+  try {
+    await axiosPrivate.delete('/me/cancel')
+  } catch (err) {
+    console.error('There was an ERROR: ', err)
+    throw err
+  }
+}
