@@ -104,7 +104,7 @@ const Profile = () => {
                         src={auth.avatarUrl}
                         width={110}
                         height={110}
-                        alt={auth.username}
+                        alt={auth.username ? auth.username : 'user avatar'}
                         priority
                       />
                     </span>
