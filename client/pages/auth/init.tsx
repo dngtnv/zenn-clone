@@ -2,8 +2,9 @@ import { GetServerSideProps, NextPage } from 'next'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import useLogout from '../../hooks/useLogout'
 import usersPic from '../../public/users.png'
-import { updateUser } from '../../services/users'
+import { cancelRegistration, updateUser } from '../../services/users'
 import { parseJwt } from '../../utils/parseJwt'
 
 const initialState = {
@@ -19,6 +20,8 @@ const AuthInit: NextPage<Props> = ({ error }) => {
   const [values, setValues] = useState(initialState)
   const [isEmpty, setIsEmpty] = useState(true)
 
+  const logout = useLogout()
+
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = event.target
     if (!values.username.trim() || !values.name.trim()) {
@@ -30,17 +33,34 @@ const AuthInit: NextPage<Props> = ({ error }) => {
   }
 
   async function handleSubmit() {
-    const inputValues = {
-      username: values.username,
-      name: values.name,
+    try {
+      const inputValues = {
+        username: values.username,
+        name: values.name,
+      }
+      const updatedUser = await updateUser(inputValues)
+      const cachedUser = {
+        cachedUser: updatedUser,
+      }
+      // update new info of user to localStorage
+      localStorage.setItem(
+        'zenn_clone_current_user',
+        JSON.stringify(cachedUser)
+      )
+      router.push('/')
+    } catch (error) {
+      console.log('Failed to update user: ', error)
     }
-    const updatedUser = await updateUser(inputValues)
-    const cachedUser = {
-      cachedUser: updatedUser,
+  }
+
+  async function handleCancel() {
+    const confirmed = confirm(
+      'Are you sure you want to cancel your registration?'
+    )
+    if (confirmed) {
+      await cancelRegistration()
+      await logout()
     }
-    // update new info of user to localStorage
-    localStorage.setItem('zenn_clone_current_user', JSON.stringify(cachedUser))
-    router.push('/')
   }
 
   if (error) {
@@ -135,7 +155,10 @@ const AuthInit: NextPage<Props> = ({ error }) => {
               </span>
             </button>
             <div className='mt-[1.3rem]'>
-              <button className='inline-flex cursor-pointer items-center justify-center whitespace-normal rounded-[0.45em] py-2 px-4 text-center text-[0.9rem] leading-[1.4] text-gray-primary hover:bg-main-green hover:text-primary'>
+              <button
+                onClick={handleCancel}
+                className='inline-flex cursor-pointer items-center justify-center whitespace-normal rounded-[0.45em] py-2 px-4 text-center text-[0.9rem] leading-[1.4] text-gray-primary hover:bg-main-green hover:text-primary'
+              >
                 Suspend registration
               </button>
             </div>
