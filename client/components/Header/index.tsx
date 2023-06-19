@@ -29,7 +29,7 @@ const Header = () => {
             <SvgZenn height={22} />
           </Link>
           <div className='transition-all duration-[0.3s] ease-in'>
-            {Object.keys(auth).length != 0 && auth.username ? (
+            {Object.keys(auth).length !== 0 && auth.username ? (
               <div className='flex items-center'>
                 <Link
                   href='/search'
