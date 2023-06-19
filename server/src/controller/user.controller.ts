@@ -21,10 +21,12 @@ export const updateCurrentUser = async (req: Request, res: Response) => {
   return res.json({ updateUser })
 }
 
-export const deleteCurrentUser = async (res: Response) => {
+export const deleteCurrentUser = async (req: Request, res: Response) => {
   try {
     const userId = res.locals.user._id
-    await findAndDeleteUser({ userId })
+    logger.info(`deleted user with id: ${userId}`)
+    const response = await findAndDeleteUser({ _id: userId })
+    logger.info(response)
     return res.sendStatus(204)
   } catch (err) {
     logger.error(err)
