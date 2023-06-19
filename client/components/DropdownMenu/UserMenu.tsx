@@ -1,17 +1,17 @@
-import React, { Fragment, useContext } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import SvgToiletPaper from '../Icons/toiletpaper-icon'
-import SvgDocument from '../Icons/document-icon'
-import SvgBook from '../Icons/book-icon'
-import SvgDeploy from '../Icons/deploy-icon'
-import SvgFavorite from '../Icons/favorite-icon'
-import SvgBookopen from '../Icons/bookopen-icon'
-import SvgYen from '../Icons/jpyen-icon'
-import SvgSetting from '../Icons/setting-icon'
-import SvgLogout from '../Icons/logout-icon'
 import Link from 'next/link'
-import useLogout from '../../hooks/useLogout'
+import React, { Fragment, useContext } from 'react'
 import AuthContext from '../../context/AuthProvider'
+import useLogout from '../../hooks/useLogout'
+import SvgBook from '../Icons/book-icon'
+import SvgBookopen from '../Icons/bookopen-icon'
+import SvgDeploy from '../Icons/deploy-icon'
+import SvgDocument from '../Icons/document-icon'
+import SvgFavorite from '../Icons/favorite-icon'
+import SvgYen from '../Icons/jpyen-icon'
+import SvgLogout from '../Icons/logout-icon'
+import SvgSetting from '../Icons/setting-icon'
+import SvgToiletPaper from '../Icons/toiletpaper-icon'
 
 interface Props {
   children: React.ReactNode
@@ -24,7 +24,6 @@ const UserMenu: React.FC<Props> = ({ children }) => {
 
   const signOut = async () => {
     await logout()
-    window.location.assign('/')
   }
 
   return (
