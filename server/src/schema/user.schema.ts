@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from 'zod'
+import { object, string, TypeOf } from 'zod';
 
 const payload = {
   body: object({
@@ -15,22 +15,22 @@ const payload = {
     twitterUsername: string().optional(),
     websiteUrl: string().optional(),
   }),
-}
+};
 const params = {
   params: object({
     userId: string({
       required_error: 'userId is required',
     }),
   }),
-}
+};
 
 export const updateUserSchema = object({
   ...payload,
   ...params,
-})
+});
 
 export const updateCurrentUserSchema = object({
   ...payload,
-})
+});
 
-export type UpdateUserInput = TypeOf<typeof updateUserSchema>
+export type UpdateUserInput = TypeOf<typeof updateUserSchema>;

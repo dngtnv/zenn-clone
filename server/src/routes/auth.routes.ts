@@ -1,21 +1,21 @@
-import express from 'express'
+import express from 'express';
 import {
   deleteSessionHandler,
   getUserSessionsHandler,
   googleOauthHandler,
   refreshAccessTokenHandler,
-} from '../controller/session.controller'
-import { requireUser } from '../middleware/requireUser'
+} from '../controller/session.controller';
+import { requireUser } from '../middleware/requireUser';
 
-const router = express.Router()
+const router = express.Router();
 
 // Login with Google oauth
-router.get('/api/oauth/google', googleOauthHandler)
+router.get('/api/oauth/google', googleOauthHandler);
 
-router.get('/api/sessions', requireUser, getUserSessionsHandler)
+router.get('/api/sessions', getUserSessionsHandler);
 
-router.delete('/api/sign_out', requireUser, deleteSessionHandler)
+router.delete('/api/sign_out', requireUser, deleteSessionHandler);
 
-router.get('/api/sessions/refresh', refreshAccessTokenHandler)
+router.get('/api/sessions/refresh', refreshAccessTokenHandler);
 
-export default router
+export default router;

@@ -1,4 +1,4 @@
-import { boolean, object, string, TypeOf } from 'zod'
+import { boolean, object, string, TypeOf } from 'zod';
 
 const payload = {
   body: object({
@@ -13,12 +13,9 @@ const payload = {
     }),
     postType: string().optional(),
     emoji: string().optional(),
-    path: string({
-      required_error: 'Path is required',
-    }),
     published: boolean().optional(),
   }),
-}
+};
 
 const params = {
   params: object({
@@ -26,26 +23,40 @@ const params = {
       required_error: 'articleId is required',
     }),
   }),
-}
+};
+
+const slugParams = {
+  params: object({
+    articleSlug: string({
+      required_error: 'articleSlug is required',
+    }),
+  }),
+};
 
 export const createArticleSchema = object({
   ...payload,
-})
+});
 
 export const updateArticleSchema = object({
   ...payload,
-  ...params,
-})
+  ...slugParams,
+});
 
 export const deleteArticleSchema = object({
   ...params,
-})
+});
 
+// Get article by articleId
 export const getArticleSchema = object({
   ...params,
-})
+});
 
-export type CreateArticleInput = TypeOf<typeof createArticleSchema>
-export type UpdateArticleInput = TypeOf<typeof updateArticleSchema>
-export type GetArticleInput = TypeOf<typeof getArticleSchema>
-export type DeleteArticleInput = TypeOf<typeof deleteArticleSchema>
+export const getArticleBySlugSchema = object({
+  ...slugParams,
+});
+
+export type GetArticleBySlugInput = TypeOf<typeof getArticleBySlugSchema>;
+export type CreateArticleInput = TypeOf<typeof createArticleSchema>;
+export type UpdateArticleInput = TypeOf<typeof updateArticleSchema>;
+export type GetArticleInput = TypeOf<typeof getArticleSchema>;
+export type DeleteArticleInput = TypeOf<typeof deleteArticleSchema>;
