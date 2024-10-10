@@ -106,7 +106,7 @@ const Footer: React.FC = () => {
             </nav>
           </div>
         </div>
-        <div className="mt-8 border-t border-t-gray-bd-lighter pt-[0.9rem] pb-[0.8rem] text-center text-gray-primary">
+        <div className="mt-8 border-t border-t-gray-bd-lighter pb-[0.8rem] pt-[0.9rem] text-center text-gray-primary">
           classmethod
         </div>
       </div>

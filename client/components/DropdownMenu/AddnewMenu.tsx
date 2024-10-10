@@ -1,10 +1,12 @@
-import React, { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import scrapPic from '../../public/scrap.png'
-import articlePic from '../../public/article.png'
-import bookPic from '../../public/book.png'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { Fragment } from 'react'
+import articlePic from '../../public/article.png'
+import bookPic from '../../public/book.png'
+import scrapPic from '../../public/scrap.png'
+import { initArticle } from '../../services/articles'
 
 interface Props {
   children: string
@@ -12,6 +14,13 @@ interface Props {
 }
 
 const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
+  const router = useRouter()
+
+  async function newArticleHandler() {
+    const slug = await initArticle()
+    router.push(`/articles/${slug}/edit`)
+  }
+
   return (
     <Menu as="div" className="relative">
       <Menu.Button className={className}>{children}</Menu.Button>
@@ -42,8 +51,8 @@ const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <Link
-                href="#"
+              <button
+                onClick={newArticleHandler}
                 className={`${
                   active && 'bg-main-gray'
                 } group flex w-full flex-wrap items-center px-[0.9em] py-[0.7em] text-[14px] leading-[1.5]`}
@@ -52,7 +61,7 @@ const AddnewMenu: React.FC<Props> = ({ children, className }: Props) => {
                   <Image src={articlePic} width={40} height={34} alt="" />
                 </span>
                 Create article
-              </Link>
+              </button>
             )}
           </Menu.Item>
           <Menu.Item>

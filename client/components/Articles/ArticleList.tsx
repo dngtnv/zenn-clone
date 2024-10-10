@@ -78,7 +78,7 @@ const ArticleList: React.FC = () => {
     },
   ]
   return (
-    <div className='flex flex-wrap items-start justify-between'>
+    <div className="flex flex-wrap items-start justify-between">
       {articles.map((article, index) => (
         <ArticleItem key={index} {...article} />
       ))}

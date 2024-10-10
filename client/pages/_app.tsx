@@ -1,14 +1,14 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode, useState } from 'react'
-import { NextPage } from 'next'
-import { AuthProvider } from '../context/AuthProvider'
-import { Inter } from '@next/font/google'
 import {
   Hydrate,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { NextPage } from 'next'
+import type { AppProps } from 'next/app'
+import { Inter } from 'next/font/google'
+import { ReactElement, ReactNode, useState } from 'react'
+import { AuthProvider } from '../context/AuthProvider'
+import '../styles/globals.css'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -36,11 +36,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <main className={`${inter.variable} font-sans`}>
+        <div className={`${inter.variable} font-sans`}>
           <AuthProvider>
             {getLayout(<Component {...pageProps} />, pageProps.data)}
           </AuthProvider>
-        </main>
+        </div>
       </Hydrate>
     </QueryClientProvider>
   )

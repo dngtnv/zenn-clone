@@ -11,7 +11,7 @@ type UserContextValue = {
 
 const AuthContext = createContext<UserContextValue>({
   auth: {} as IUser,
-  setAuth: () => { },
+  setAuth: () => {},
 })
 
 type Props = {

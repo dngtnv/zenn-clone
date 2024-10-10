@@ -26,4 +26,5 @@ export interface IArticle {
   title: string
   user: IUser
   path: string
+  slug: string
 }

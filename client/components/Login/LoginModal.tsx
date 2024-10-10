@@ -1,11 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react'
+import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import { Fragment } from 'react'
+import getGoogleOauthUrl from '../../utils/getGoogleUrl'
 import SvgClose from '../Icons/close-icon'
 import SvgGoogle from '../Icons/google-icon'
 import SvgZenn from '../Icons/zenn-logo'
-import getGoogleOauthUrl from '../../utils/getGoogleUrl'
-import { Inter } from '@next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,10 +46,10 @@ export default function LoginModal(props: Props) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-[400px] max-w-[86vw] transform overflow-hidden rounded-2xl bg-white py-[2.3rem] px-[1.7rem] text-center align-middle leading-[1.7] shadow-[0_3px_10px_rgba(0,22,103,0.2)] transition-all">
+                <Dialog.Panel className="w-[400px] max-w-[86vw] transform overflow-hidden rounded-2xl bg-white px-[1.7rem] py-[2.3rem] text-center align-middle leading-[1.7] shadow-[0_3px_10px_rgba(0,22,103,0.2)] transition-all">
                   <button
                     onClick={props.closeModal}
-                    className="absolute top-4 right-4 text-gray-primary"
+                    className="absolute right-4 top-4 text-gray-primary"
                   >
                     <SvgClose size={15} />
                   </button>
